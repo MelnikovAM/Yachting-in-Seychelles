@@ -626,88 +626,106 @@
           </section>
         </section>
 
-        <!-- TAB 2: Карта -->
+                <!-- TAB 2: Карта -->
         <section id="map-panel" class="tab-panel">
           <section class="card">
             <h2>Карта путешествия</h2>
             <p class="map-header-extra">
-              Карта на основе OpenStreetMap с примерной схемой переходов и основных точек маршрута. Линии на схеме ориентировочные; для навигации используйте официальные карты и электронные средства.[web:55][web:58][web:61]
+              Схематичная карта маршрута в стиле туристических путеводителей: острова показаны в относительном положении, пунктир отображает примерные переходы между стоянками. Не предназначена для навигации, но помогает увидеть общую картину путешествия.[web:67]
             </p>
             <div class="legend">
               <span><span class="legend-dot dot-start"></span> старт / финиш</span>
               <span><span class="legend-dot dot-stop"></span> основные стоянки</span>
-              <span><span class="legend-dot dot-route"></span> пунктир переходов</span>
+              <span><span class="legend-dot dot-route"></span> линии переходов</span>
             </div>
 
             <div class="map-wrapper">
-              <div class="map">
-                <!-- статичный тайл OSM через Geoapify demo-ключ (пример) -->
-                <img
-                  class="map-tile"
-                  src="https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=1200&height=800&center=lonlat:55.47,-4.61&zoom=9&apiKey=8c7a2b9e1f3c4d7e9d8c7a2b9e1f3c4"
-                  alt="Карта маршрута на основе OpenStreetMap"
-                >
+              <div class="map" style="
+                background:
+                  radial-gradient(circle at 20% 70%, #bae6fd 0, #7dd3fc 12%, #0ea5e9 26%, #0369a1 50%, #0f172a 100%);
+              ">
+                <!-- «Фон» как стилизованное море -->
 
-                <!-- Метки -->
-                <div class="map-label" style="left: 24%; top: 68%;">
+                <!-- Mahé -->
+                <div class="map-label" style="left: 18%; top: 70%;">
                   <div class="bubble">
                     <div class="name">Mahé</div>
                     <div class="meta">Марина • Дни 1, 7–8</div>
                   </div>
                 </div>
-                <div class="map-label" style="left: 30%; top: 60%;">
+
+                <!-- St Anne -->
+                <div class="map-label" style="left: 28%; top: 60%;">
                   <div class="bubble">
                     <div class="name">St&nbsp;Anne</div>
                     <div class="meta">День 2</div>
                   </div>
                 </div>
-                <div class="map-label" style="left: 60%; top: 40%;">
+
+                <!-- Praslin -->
+                <div class="map-label" style="left: 55%; top: 40%;">
                   <div class="bubble">
                     <div class="name">Praslin</div>
                     <div class="meta">Дни 3–4</div>
                   </div>
                 </div>
-                <div class="map-label" style="left: 68%; top: 45%;">
+
+                <!-- La Digue -->
+                <div class="map-label" style="left: 65%; top: 45%;">
                   <div class="bubble">
                     <div class="name">La&nbsp;Digue</div>
                     <div class="meta">День 5</div>
                   </div>
                 </div>
+
+                <!-- Iles Cocos -->
                 <div class="map-label" style="left: 72%; top: 38%;">
                   <div class="bubble">
                     <div class="name">Iles Cocos</div>
                     <div class="meta">Снорклинг</div>
                   </div>
                 </div>
-                <div class="map-label" style="left: 62%; top: 34%;">
+
+                <!-- Curieuse -->
+                <div class="map-label" style="left: 60%; top: 33%;">
                   <div class="bubble">
                     <div class="name">Curieuse</div>
                     <div class="meta">Черепахи</div>
                   </div>
                 </div>
-                <div class="map-label" style="left: 54%; top: 36%;">
+
+                <!-- Cousin -->
+                <div class="map-label" style="left: 50%; top: 35%;">
                   <div class="bubble">
                     <div class="name">Cousin</div>
                     <div class="meta">Резерват</div>
                   </div>
                 </div>
 
-                <!-- Переходы (пунктирные линии по карте) -->
-                <div class="map-line" style="left: 24%; top: 64%; width: 9%; transform: rotate(-25deg);"></div>
-                <div class="map-line" style="left: 30%; top: 60%; width: 32%; transform: rotate(-15deg);"></div>
-                <div class="map-line" style="left: 60%; top: 40%; width: 10%; transform: rotate(25deg);"></div>
-                <div class="map-line" style="left: 68%; top: 44%; width: 8%; transform: rotate(-35deg);"></div>
-                <div class="map-line" style="left: 72%; top: 38%; width: 11%; transform: rotate(-170deg);"></div>
-                <div class="map-line" style="left: 62%; top: 34%; width: 10%; transform: rotate(190deg);"></div>
-                <div class="map-line" style="left: 54%; top: 36%; width: 34%; transform: rotate(200deg);"></div>
+                <!-- Пунктирные переходы -->
+                <!-- Mahé → St Anne -->
+                <div class="map-line" style="left: 18%; top: 65%; width: 12%; transform: rotate(-25deg);"></div>
+                <!-- St Anne → Praslin -->
+                <div class="map-line" style="left: 28%; top: 60%; width: 30%; transform: rotate(-15deg);"></div>
+                <!-- Praslin → La Digue -->
+                <div class="map-line" style="left: 55%; top: 40%; width: 12%; transform: rotate(25deg);"></div>
+                <!-- La Digue → Iles Cocos -->
+                <div class="map-line" style="left: 65%; top: 44%; width: 9%; transform: rotate(-35deg);"></div>
+                <!-- Iles Cocos → Curieuse -->
+                <div class="map-line" style="left: 72%; top: 38%; width: 13%; transform: rotate(-170deg);"></div>
+                <!-- Curieuse → Cousin -->
+                <div class="map-line" style="left: 60%; top: 33%; width: 11%; transform: rotate(190deg);"></div>
+                <!-- Cousin → Mahé -->
+                <div class="map-line" style="left: 50%; top: 35%; width: 35%; transform: rotate(200deg);"></div>
               </div>
             </div>
 
             <p class="footer-note">
-              Центр карты выбран в районе внутренних островов архипелага: Mahé, Praslin, La&nbsp;Digue и Curieuse, на основе данных OpenStreetMap и типовых маршрутов яхтинга.[web:18][web:32][web:55][web:58]
+              Схема показывает основную последовательность стоянок: Mahé → St&nbsp;Anne → Praslin → La&nbsp;Digue → Iles&nbsp;Cocos / Félicité → Curieuse / Cousin → Mahé. На практике маршрут может чуть меняться по погоде и рекомендациям капитана.[web:18][web:32][web:34]
             </p>
           </section>
         </section>
+
       </div>
     </section>
   </main>

@@ -631,55 +631,60 @@
           <section class="card">
             <h2>Карта путешествия</h2>
             <p class="map-header-extra">
-              Схематичная карта маршрута в стиле туристических путеводителей: острова показаны в относительном положении, пунктир отображает примерные переходы между стоянками. Не предназначена для навигации, но помогает увидеть общую картину путешествия.[web:67]
+              Маршрут нанесён на обзорную карту внутренних островов Сейшел: Mahé, Praslin, La&nbsp;Digue и соседние острова. Точки показывают, где проходит каждый день путешествия. Карта носит ознакомительный характер и не предназначена для навигации.[web:75][web:78]
             </p>
             <div class="legend">
-              <span><span class="legend-dot dot-start"></span> старт / финиш</span>
-              <span><span class="legend-dot dot-stop"></span> основные стоянки</span>
-              <span><span class="legend-dot dot-route"></span> линии переходов</span>
+              <span><span class="legend-dot dot-start"></span> старт / финиш (Mahé)</span>
+              <span><span class="legend-dot dot-stop"></span> стоянки по дням</span>
+              <span><span class="legend-dot dot-route"></span> направление переходов</span>
             </div>
 
             <div class="map-wrapper">
-              <div class="map" style="
-                background:
-                  radial-gradient(circle at 20% 70%, #bae6fd 0, #7dd3fc 12%, #0ea5e9 26%, #0369a1 50%, #0f172a 100%);
-              ">
-                <!-- «Фон» как стилизованное море -->
+              <div class="map" style="background:none; border-radius:14px; border:1px solid rgba(148,163,184,0.9); overflow:hidden; position:relative; height:auto;">
+                <!-- Статичная карта: внутренняя картинка (можно кликнуть для увеличения) -->
+                <a href="https://www.seyvillas.com/img/guide/175/map-seychelles-islands-big.jpg" target="_blank" rel="noopener noreferrer">
+                  <img
+                    src="https://www.seyvillas.com/img/guide/175/map-seychelles-islands-big.jpg"
+                    alt="Карта внутренних островов Сейшел (Mahé, Praslin, La Digue и др.)"
+                    style="display:block; width:100%; height:auto;"
+                  >
+                </a>
 
-                <!-- Mahé -->
-                <div class="map-label" style="left: 18%; top: 70%;">
+                <!-- Поверх изображения размещаем условные маркеры (по относительным координатам) -->
+                <!-- Mahé (старт / финиш) -->
+                <div class="map-label" style="left: 20%; top: 68%;">
                   <div class="bubble">
                     <div class="name">Mahé</div>
-                    <div class="meta">Марина • Дни 1, 7–8</div>
+                    <div class="meta">Дни 1, 7–8</div>
                   </div>
                 </div>
 
-                <!-- St Anne -->
-                <div class="map-label" style="left: 28%; top: 60%;">
+                <!-- St Anne Marine Park (День 2) -->
+                <div class="map-label" style="left: 24%; top: 62%;">
                   <div class="bubble">
                     <div class="name">St&nbsp;Anne</div>
                     <div class="meta">День 2</div>
                   </div>
                 </div>
 
-                <!-- Praslin -->
-                <div class="map-label" style="left: 55%; top: 40%;">
+                <!-- Praslin (Дни 3–4) -->
+                <div class="map-label" style="left: 46%; top: 42%;">
                   <div class="bubble">
                     <div class="name">Praslin</div>
                     <div class="meta">Дни 3–4</div>
                   </div>
                 </div>
 
-                <!-- La Digue -->
-                <div class="map-label" style="left: 65%; top: 45%;">
+                <!-- La Digue (День 5) -->
+                <div class="map-label" style="left: 50%; top: 45%;">
                   <div class="bubble">
                     <div class="name">La&nbsp;Digue</div>
                     <div class="meta">День 5</div>
                   </div>
                 </div>
 
-                <!-- Iles Cocos -->
-                <div class="map-label" style="left: 72%; top: 38%;">
+                <!-- Iles Cocos (снорклинг) -->
+                <div class="map-label" style="left: 53%; top: 40%;">
                   <div class="bubble">
                     <div class="name">Iles Cocos</div>
                     <div class="meta">Снорклинг</div>
@@ -687,7 +692,7 @@
                 </div>
 
                 <!-- Curieuse -->
-                <div class="map-label" style="left: 60%; top: 33%;">
+                <div class="map-label" style="left: 44%; top: 38%;">
                   <div class="bubble">
                     <div class="name">Curieuse</div>
                     <div class="meta">Черепахи</div>
@@ -695,33 +700,33 @@
                 </div>
 
                 <!-- Cousin -->
-                <div class="map-label" style="left: 50%; top: 35%;">
+                <div class="map-label" style="left: 40%; top: 39%;">
                   <div class="bubble">
                     <div class="name">Cousin</div>
                     <div class="meta">Резерват</div>
                   </div>
                 </div>
 
-                <!-- Пунктирные переходы -->
+                <!-- Переходы пунктиром (ориентировочные линии) -->
                 <!-- Mahé → St Anne -->
-                <div class="map-line" style="left: 18%; top: 65%; width: 12%; transform: rotate(-25deg);"></div>
+                <div class="map-line" style="left: 20%; top: 65%; width: 8%; transform: rotate(-25deg);"></div>
                 <!-- St Anne → Praslin -->
-                <div class="map-line" style="left: 28%; top: 60%; width: 30%; transform: rotate(-15deg);"></div>
+                <div class="map-line" style="left: 24%; top: 60%; width: 26%; transform: rotate(-15deg);"></div>
                 <!-- Praslin → La Digue -->
-                <div class="map-line" style="left: 55%; top: 40%; width: 12%; transform: rotate(25deg);"></div>
+                <div class="map-line" style="left: 46%; top: 42%; width: 7%; transform: rotate(25deg);"></div>
                 <!-- La Digue → Iles Cocos -->
-                <div class="map-line" style="left: 65%; top: 44%; width: 9%; transform: rotate(-35deg);"></div>
+                <div class="map-line" style="left: 50%; top: 43%; width: 7%; transform: rotate(-35deg);"></div>
                 <!-- Iles Cocos → Curieuse -->
-                <div class="map-line" style="left: 72%; top: 38%; width: 13%; transform: rotate(-170deg);"></div>
+                <div class="map-line" style="left: 53%; top: 40%; width: 11%; transform: rotate(-170deg);"></div>
                 <!-- Curieuse → Cousin -->
-                <div class="map-line" style="left: 60%; top: 33%; width: 11%; transform: rotate(190deg);"></div>
+                <div class="map-line" style="left: 44%; top: 38%; width: 7%; transform: rotate(190deg);"></div>
                 <!-- Cousin → Mahé -->
-                <div class="map-line" style="left: 50%; top: 35%; width: 35%; transform: rotate(200deg);"></div>
+                <div class="map-line" style="left: 40%; top: 39%; width: 24%; transform: rotate(200deg);"></div>
               </div>
             </div>
 
             <p class="footer-note">
-              Схема показывает основную последовательность стоянок: Mahé → St&nbsp;Anne → Praslin → La&nbsp;Digue → Iles&nbsp;Cocos / Félicité → Curieuse / Cousin → Mahé. На практике маршрут может чуть меняться по погоде и рекомендациям капитана.[web:18][web:32][web:34]
+              Положение маркеров на карте ориентировочное и отражает общую логику маршрута: Mahé → St&nbsp;Anne → Praslin → La&nbsp;Digue → Iles&nbsp;Cocos → Curieuse / Cousin → Mahé.[web:75][web:78]
             </p>
           </section>
         </section>

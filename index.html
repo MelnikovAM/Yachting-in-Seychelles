@@ -34,7 +34,7 @@
     }
     header h1 {
       margin: 0 0 8px;
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: #0f172a;
@@ -51,22 +51,61 @@
     }
 
     main {
-      max-width: 1100px;
+      max-width: 1400px; /* шире страницы */
       margin: 0 auto;
       padding: 0 16px 40px;
     }
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
-      gap: 22px;
-      align-items: flex-start;
+
+    /* Табы */
+    .tabs {
+      margin-top: 8px;
     }
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-soft);
+      overflow-x: auto;
+    }
+    .tabs-nav label {
+      position: relative;
+      padding: 8px 14px;
+      border-radius: 10px 10px 0 0;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      border-bottom: none;
+      background: transparent;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .tabs-nav label:hover {
+      background: #e5f0ff;
+      color: var(--accent);
+    }
+    input[name="main-tabs"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* Активный таб */
+    #tab-route:checked ~ .tabs-nav label[for="tab-route"],
+    #tab-map:checked ~ .tabs-nav label[for="tab-map"] {
+      color: #0f172a;
+      background: var(--bg-soft);
+      border-color: var(--border-soft);
+      border-bottom: 1px solid var(--bg-soft);
+    }
+    .tab-panel {
+      display: none;
+    }
+    #tab-route:checked ~ .tab-panels #route-panel,
+    #tab-map:checked ~ .tab-panels #map-panel {
+      display: block;
     }
 
+    /* Общие карточки */
     .card {
       background: var(--bg-soft);
       border-radius: 16px;
@@ -81,6 +120,20 @@
       text-transform: uppercase;
       color: var(--accent);
     }
+
+    /* План путешествия */
+    .layout-wide {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr); /* шире блоков */
+      gap: 24px;
+      align-items: flex-start;
+    }
+    @media (max-width: 1000px) {
+      .layout-wide {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .card h3 {
       margin: 14px 0 6px;
       font-size: 1.05rem;
@@ -110,7 +163,7 @@
 
     .route-summary {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 10px;
       margin-top: 8px;
     }
@@ -167,7 +220,7 @@
     }
     .day-content {
       display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(140px, 1fr);
+      grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr); /* шире блок, шире фото */
       gap: 10px;
       margin-top: 6px;
     }
@@ -189,13 +242,22 @@
       position: relative;
       border: 1px solid rgba(148,163,184,0.7);
       background: #e5e7eb;
-      min-height: 110px;
+      min-height: 140px;
+    }
+    .day-photo a {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
     .day-photo img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.2s ease-out;
+    }
+    .day-photo:hover img {
+      transform: scale(1.03);
     }
     .day-photo-caption {
       position: absolute;
@@ -210,17 +272,14 @@
       text-align: center;
     }
 
-    .map-card {
-      position: relative;
-      min-height: 360px;
-      overflow: hidden;
-    }
-    .map-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: center;
+    /* Карта */
+    .map-card h2 {
       margin-bottom: 8px;
+    }
+    .map-header-extra {
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
     .legend {
       display: flex;
@@ -228,6 +287,7 @@
       gap: 8px;
       font-size: 0.78rem;
       color: var(--text-muted);
+      margin-top: 4px;
     }
     .legend span {
       display: inline-flex;
@@ -252,7 +312,9 @@
       border-radius: 0;
     }
 
-    /* «Морская» карта: светло-синий фон + сетка точек + пунктирные линии */
+    .map-wrapper {
+      margin-top: 8px;
+    }
     .map {
       position: relative;
       background:
@@ -261,7 +323,7 @@
       background-size: 32px 32px;
       border-radius: 14px;
       border: 1px solid rgba(148,163,184,0.9);
-      height: 300px;
+      height: 420px;
       overflow: hidden;
     }
     .map::before {
@@ -332,296 +394,334 @@
   </header>
 
   <main>
-    <section class="layout">
-      <!-- План по дням -->
-      <section class="card">
-        <h2>Маршрут по дням</h2>
+    <section class="tabs">
+      <!-- Радиокнопки для табов -->
+      <input type="radio" name="main-tabs" id="tab-route" checked>
+      <input type="radio" name="main-tabs" id="tab-map">
 
-        <div class="route-summary">
-          <div class="summary-item">
-            <div>Даты чартера</div>
-            <div>14–21 ноября 2026</div>
-          </div>
-          <div class="summary-item">
-            <div>Яхта</div>
-            <div>Lagoon 42 “Golden Bride” (2024)</div>
-          </div>
-          <div class="summary-item">
-            <div>Формат</div>
-            <div>1 день — прием яхты, 6 дней — плавание</div>
-          </div>
-          <div class="summary-item">
-            <div>Оценочная длина</div>
-            <div>≈ 120–140 морских миль</div>
-          </div>
-          <div class="summary-item">
-            <div>Время в пути</div>
-            <div>3–6 часов хода в «переездные» дни</div>
-          </div>
-        </div>
+      <!-- Навигация табов -->
+      <div class="tabs-nav">
+        <label for="tab-route">Маршрут путешествия</label>
+        <label for="tab-map">Карта путешествия</label>
+      </div>
 
-        <div class="pill-row">
-          <span class="pill"><strong>День 1</strong>: спокойный старт в марине Mahé, без переходов</span>
-          <span class="pill">Фокус: природа, пляжи, снорклинг, островные прогулки</span>
-          <span class="pill">Маршрут может адаптироваться по погоде и рекомендациям капитана</span>
-        </div>
+      <!-- Контент табов -->
+      <div class="tab-panels">
+        <!-- TAB 1: Маршрут -->
+        <section id="route-panel" class="tab-panel">
+          <section class="layout-wide">
+            <section class="card">
+              <h2>Маршрут по дням</h2>
 
-        <div class="warning">
-          <strong>Важно:</strong> фактические переходы и стоянки должны подтверждаться по погоде, навигационным картам и правилам морских парков. План — ориентир для отдыха и распределения впечатлений.[web:18][web:19][web:32][web:34]
-        </div>
+              <div class="route-summary">
+                <div class="summary-item">
+                  <div>Даты чартера</div>
+                  <div>14–21 ноября 2026</div>
+                </div>
+                <div class="summary-item">
+                  <div>Яхта</div>
+                  <div>Lagoon 42 “Golden Bride” (2024)</div>
+                </div>
+                <div class="summary-item">
+                  <div>Формат</div>
+                  <div>1 день — прием яхты, 6 дней — плавание</div>
+                </div>
+                <div class="summary-item">
+                  <div>Оценочная длина</div>
+                  <div>≈ 120–140 морских миль</div>
+                </div>
+                <div class="summary-item">
+                  <div>Время в пути</div>
+                  <div>3–6 часов хода в «переездные» дни</div>
+                </div>
+              </div>
 
-        <!-- День 1: без перехода -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 1 — Суббота, 14 ноября</div>
-            <div class="day-distance">Mahé • 0 nm · день без переходов</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>16:00 — приём Lagoon&nbsp;42 “Golden Bride” в марине Eden Island / Victoria: брифинг, проверка оборудования, размещение вещей.[web:19][web:33]</li>
-                <li>Время на спокойную закупку продуктов, напитков и пляжных мелочей в супермаркетах и магазинах на Mahé.</li>
-                <li>Вечерняя прогулка по набережной Виктории, ужин в прибрежном ресторане, возможность настроиться на отпуск без спешки.[web:41]</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Victoria%2C_Seychelles_harbour.jpg" alt="Гавань Виктории, Mahé">
-              <div class="day-photo-caption">Вид на гавань Виктории на острове Mahé — атмосферное место для первого вечера.[web:41]</div>
-            </div>
-          </div>
-        </article>
+              <div class="pill-row">
+                <span class="pill"><strong>День 1</strong>: спокойный старт в марине Mahé, без переходов</span>
+                <span class="pill">Фокус: природа, пляжи, снорклинг, островные прогулки</span>
+                <span class="pill">Маршрут адаптируется по погоде и рекомендациям капитана</span>
+              </div>
 
-        <!-- День 2 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 2 — Воскресенье, 15 ноября</div>
-            <div class="day-distance">Mahé → St&nbsp;Anne Marine Park • 3–5 nm · 0,5–1 ч</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>Неспешный выход из марины после утренних сборов и инструктажа, короткий переход к St&nbsp;Anne Marine National Park.[web:19][web:22][web:32]</li>
-                <li>Стоянка на якоре у одного из островков (например, Moyenne или Sainte&nbsp;Anne), купание и снорклинг над коралловыми рифами.[web:19][web:22]</li>
-                <li>Прогулка на остров Moyenne по тропинкам среди пальм и гранитных валунов, знакомство с местными черепахами.[web:22][web:38]</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Sainte_Anne_Marine_National_Park%2C_Seychelles.jpg" alt="St Anne Marine National Park">
-              <div class="day-photo-caption">St&nbsp;Anne Marine National Park — лагуны, рифы и спокойная вода для первого захода в океан.[web:22][web:38]</div>
-            </div>
-          </div>
-        </article>
+              <div class="warning">
+                <strong>Важно:</strong> фактические переходы и стоянки должны подтверждаться по погоде, навигационным картам и правилам морских парков. План основан на типовых недельных маршрутах по Сейшелам.[web:17][web:18][web:19][web:32][web:34]
+              </div>
 
-        <!-- День 3 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 3 — Понедельник, 16 ноября</div>
-            <div class="day-distance">St&nbsp;Anne → Praslin (Baie Sainte Anne) • ≈ 28 nm · 4–6 ч</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>Утренний переход к Praslin по открытой воде, отличный шанс «почувствовать» катамаран и ритм Индийского океана.[web:17][web:18][web:34]</li>
-                <li>Постановка в Baie Sainte Anne — основная гавань острова с кафе, магазинами и возможностью прогуляться по набережной.[web:17][web:34]</li>
-                <li>Вечер: расслабленный ужин, подготовка к экскурсии в Vallée de Mai на следующий день.</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Praslin_Baie_Sainte_Anne.jpg" alt="Praslin, Baie Sainte Anne">
-              <div class="day-photo-caption">Baie Sainte Anne на Praslin — удобная точка входа к основным достопримечательностям острова.[web:17][web:38]</div>
-            </div>
-          </div>
-        </article>
+              <!-- День 1 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 1 — Суббота, 14 ноября</div>
+                  <div class="day-distance">Mahé • 0 nm · день без переходов</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>16:00 — приём Lagoon&nbsp;42 “Golden Bride” в марине Eden Island / Victoria: брифинг, проверка оборудования, размещение вещей.[web:19][web:33]</li>
+                      <li>Спокойная закупка продуктов и напитков в супермаркетах на Mahé, настройка на отпуск без спешки.[web:41]</li>
+                      <li>Вечерняя прогулка по набережной Виктории, ужин с видом на гавань и подсвеченные горы.[web:41]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/6/64/Victoria%2C_Seychelles_harbour.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Victoria%2C_Seychelles_harbour.jpg" alt="Гавань Виктории, Mahé">
+                    </a>
+                    <div class="day-photo-caption">Гавань Виктории на Mahé — атмосферное место для первого вечера и знакомства с Сейшелами.[web:41]</div>
+                  </div>
+                </div>
+              </article>
 
-        <!-- День 4 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 4 — Вторник, 17 ноября</div>
-            <div class="day-distance">Praslin (Vallée de Mai → Anse Lazio) • 5–10 nm · 1–2 ч</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>Утром — посещение Vallée de&nbsp;Mai: тропический лес, знаменитая пальма coco de&nbsp;mer и маршруты ЮНЕСКО.[web:17][web:18][web:44]</li>
-                <li>После обеда — короткий переход к пляжу Anse&nbsp;Lazio на севере Praslin, известному белым песком и гранитными скалами.[web:18][web:38]</li>
-                <li>Вечер на Anse&nbsp;Lazio: купание, снорклинг у валунов, закат и кокосы прямо на пляже.[web:38]</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Anse_Lazio_2_Prasein_Seychelles_2852906445.jpg" alt="Anse Lazio, Praslin">
-              <div class="day-photo-caption">Anse&nbsp;Lazio — один из самых известных пляжей мира с бирюзовой водой и гранитными валунами.[web:38]</div>
-            </div>
-          </div>
-        </article>
+              <!-- День 2 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 2 — Воскресенье, 15 ноября</div>
+                  <div class="day-distance">Mahé → St&nbsp;Anne Marine Park • 3–5 nm · 0,5–1 ч</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>Неспешный выход из марины после утренних сборов и инструктажа, короткий переход к St&nbsp;Anne Marine National Park.[web:19][web:22][web:32]</li>
+                      <li>Стоянка на якоре у одного из островков (Moyenne, Sainte&nbsp;Anne) с бирюзовой водой и песчаными отмелями.[web:19][web:22]</li>
+                      <li>Снорклинг над коралловыми рифами, прогулки по острову Moyenne среди пальм, гранита и свободно гуляющих черепах.[web:22][web:38]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Sainte_Anne_Marine_National_Park%2C_Seychelles.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Sainte_Anne_Marine_National_Park%2C_Seychelles.jpg" alt="St Anne Marine National Park">
+                    </a>
+                    <div class="day-photo-caption">St&nbsp;Anne Marine National Park — заповедные лагуны и рифы всего в нескольких милях от Mahé.[web:22][web:38]</div>
+                  </div>
+                </div>
+              </article>
 
-        <!-- День 5 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 5 — Среда, 18 ноября</div>
-            <div class="day-distance">Praslin (Anse Lazio) → La&nbsp;Digue • 10–12 nm · 2–3 ч</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>Переход к La&nbsp;Digue, острову без автомобилей, с атмосферой «другого времени».[web:17][web:18][web:41]</li>
-                <li>Велопрогулка через L’Union Estate к Anse Source d’Argent: плантации, гранитные глыбы, знаменитые пейзажи.[web:35][web:38]</li>
-                <li>Купание на Anse Source d’Argent, один из самых фотогеничных пляжей в мире; вечером — ужин и прогулка по острову.[web:35][web:38]</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Anse_Source_d%27Argent_2-La_Digue.jpg" alt="Anse Source d’Argent, La Digue">
-              <div class="day-photo-caption">Anse&nbsp;Source d’Argent на La&nbsp;Digue — визитная карточка Сейшел с гранитными глыбами и лазурной водой.[web:35][web:38]</div>
-            </div>
-          </div>
-        </article>
+              <!-- День 3 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 3 — Понедельник, 16 ноября</div>
+                  <div class="day-distance">St&nbsp;Anne → Praslin (Baie Sainte Anne) • ≈ 28 nm · 4–6 ч</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>Утренний переход к Praslin по открытой воде — первое полноценное «путешествие» между островами.[web:17][web:18][web:34]</li>
+                      <li>Постановка на якорь в Baie Sainte Anne, удобной гавани с паромным терминалом, кафе и инфраструктурой.[web:17][web:34]</li>
+                      <li>Прогулка по набережной, подготовка к экскурсии в Vallée de&nbsp;Mai на следующий день.[web:38]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/a/a3/Praslin_Baie_Sainte_Anne.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Praslin_Baie_Sainte_Anne.jpg" alt="Praslin, Baie Sainte Anne">
+                    </a>
+                    <div class="day-photo-caption">Baie Sainte Anne на Praslin — ворота к Vallée de&nbsp;Mai и северным пляжам острова.[web:17][web:38]</div>
+                  </div>
+                </div>
+              </article>
 
-        <!-- День 6 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 6 — Четверг, 19 ноября</div>
-            <div class="day-distance">La&nbsp;Digue → Iles Cocos/Félicité → Curieuse / St&nbsp;Pierre • 10–15 nm · 3–4 ч</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>Короткий переход к Iles&nbsp;Cocos и Félicité — популярные точки снорклинга с прозрачной водой и изобилием коралловых рыб.[web:17][web:18][web:30]</li>
-                <li>После обеда — переход к Curieuse: прогулка среди мангров, посещение центра гигантских черепах и деревянных настилов над лагунами.[web:17][web:19][web:22]</li>
-                <li>Закат у St&nbsp;Pierre — маленький гранитный островок-«открытка», идеально подходящий для вечернего снорклинга и фотографий.[web:17][web:19]</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Curieuse_Island%2C_Seychelles.jpg" alt="Curieuse, Seychelles">
-              <div class="day-photo-caption">Curieuse — остров-резерват с гигантскими черепахами и мангровыми тропами вдоль лагуны.[web:17][web:22]</div>
-            </div>
-          </div>
-        </article>
+              <!-- День 4 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 4 — Вторник, 17 ноября</div>
+                  <div class="day-distance">Praslin (Vallée de Mai → Anse Lazio) • 5–10 nm · 1–2 ч</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>Экскурсия в Vallée de&nbsp;Mai: тропический лес, древние пальмы coco de&nbsp;mer и тропы, включённые в список ЮНЕСКО.[web:17][web:18][web:44]</li>
+                      <li>Короткий переход к Anse&nbsp;Lazio на северо-западе Praslin, одному из самых знаменитых пляжей архипелага.[web:18][web:38]</li>
+                      <li>Плавание, снорклинг у гранитных валунов и мягкий закат над бухтой.[web:38]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/0/0c/Anse_Lazio_2_Prasein_Seychelles_2852906445.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Anse_Lazio_2_Prasein_Seychelles_2852906445.jpg" alt="Anse Lazio, Praslin">
+                    </a>
+                    <div class="day-photo-caption">Anse&nbsp;Lazio — идеальный пляж: белый песок, зелень и гранитные глыбы в лазурной воде.[web:38]</div>
+                  </div>
+                </div>
+              </article>
 
-        <!-- День 7 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 7 — Пятница, 20 ноября</div>
-            <div class="day-distance">Curieuse / Praslin → Mahé (через Cousin / St&nbsp;Anne) • 35–45 nm · 5–7 ч</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>По погоде — утренний заход к Cousin (природный резерват, морские птицы, охраняемые пляжи; посещение по правилам парка).[web:19][web:22][web:34]</li>
-                <li>Дальний переход к Mahé с возможной остановкой на короткий купальный заход в районе St&nbsp;Anne или Ile&nbsp;Moyenne.[web:32][web:34]</li>
-                <li>Прибытие в марину Eden Island / Victoria заблаговременно для заправки и подготовки к сдаче; 17:00 — осмотр и сдача Lagoon&nbsp;42 “Golden Bride”.[web:19][web:33]</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Seychelles_La_Digue_Ile_Cocos.jpg" alt="Острова у Praslin и La Digue">
-              <div class="day-photo-caption">Возвращение на Mahé через острова и лагуны — последний насыщенный день на воде.[web:18][web:34]</div>
-            </div>
-          </div>
-        </article>
+              <!-- День 5 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 5 — Среда, 18 ноября</div>
+                  <div class="day-distance">Praslin (Anse Lazio) → La&nbsp;Digue • 10–12 nm · 2–3 ч</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>Переход к La&nbsp;Digue — камерному острову без автомобилей, где основные транспортные средства — велосипеды и воловьи повозки.[web:17][web:18][web:41]</li>
+                      <li>Велопрогулка через L’Union Estate к Anse Source d’Argent: кокосовые плантации, старый маслобойный пресс и гранитные ландшафты.[web:35][web:38]</li>
+                      <li>Купание на Anse Source d’Argent, входящем в списки самых фотогеничных пляжей мира.[web:35][web:38]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/9/98/Anse_Source_d%27Argent_2-La_Digue.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Anse_Source_d%27Argent_2-La_Digue.jpg" alt="Anse Source d’Argent, La Digue">
+                    </a>
+                    <div class="day-photo-caption">Anse&nbsp;Source d’Argent на La&nbsp;Digue — визитная открытка Сейшел.[web:35][web:38]</div>
+                  </div>
+                </div>
+              </article>
 
-        <!-- День 8 -->
-        <article class="day">
-          <div class="day-header">
-            <div class="day-title">День 8 — Суббота, 21 ноября</div>
-            <div class="day-distance">Mahé • выселение</div>
-          </div>
-          <div class="day-content">
-            <div>
-              <ul>
-                <li>Утреннее выселение с борта (как правило, до 8–9 часов в условиях чартерной компании).[web:19][web:33]</li>
-                <li>При необходимости — ещё несколько часов на Mahé для покупки сувениров или короткой прогулки по пляжу Beau Vallon.</li>
-              </ul>
-            </div>
-            <div class="day-photo">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Beau_Vallon_Beach%2C_Seychelles.jpg" alt="Beau Vallon, Mahé">
-              <div class="day-photo-caption">Пляж Beau&nbsp;Vallon на Mahé — спокойное завершение поездки перед вылетом.[web:41]</div>
-            </div>
-          </div>
-        </article>
-      </section>
+              <!-- День 6 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 6 — Четверг, 19 ноября</div>
+                  <div class="day-distance">La&nbsp;Digue → Iles Cocos/Félicité → Curieuse / St&nbsp;Pierre • 10–15 nm · 3–4 ч</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>Короткий переход к Iles&nbsp;Cocos и Félicité — маленьким островам с яркими рифами и богатой подводной жизнью, популярным у снорклеров.[web:17][web:18][web:30]</li>
+                      <li>Переход к Curieuse: прогулка по мангровым тропам, посещение центра гигантских черепах и наблюдение за мангровыми экосистемами.[web:17][web:19][web:22]</li>
+                      <li>Закат у St&nbsp;Pierre с его характерной группой пальм и гранитных валунов — естественная «визитка» северных островов.[web:17][web:19]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/0/0e/Curieuse_Island%2C_Seychelles.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Curieuse_Island%2C_Seychelles.jpg" alt="Curieuse, Seychelles">
+                    </a>
+                    <div class="day-photo-caption">Curieuse — остров-резерват с черепахами и мангровыми тропами вдоль лагун.[web:17][web:22]</div>
+                  </div>
+                </div>
+              </article>
 
-      <!-- Карта-маршрут -->
-      <section class="card map-card">
-        <div class="map-header">
-          <h2>Схема морского маршрута</h2>
-          <div class="legend">
-            <span><span class="legend-dot dot-start"></span> старт / финиш</span>
-            <span><span class="legend-dot dot-stop"></span> основные стоянки</span>
-            <span><span class="legend-dot dot-route"></span> пунктир переходов</span>
-          </div>
-        </div>
+              <!-- День 7 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 7 — Пятница, 20 ноября</div>
+                  <div class="day-distance">Curieuse / Praslin → Mahé (через Cousin / St&nbsp;Anne) • 35–45 nm · 5–7 ч</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>По погоде — утренний заход к Cousin (строго охраняемый природный резерват с морскими птицами и редкими видами).[web:19][web:22][web:34]</li>
+                      <li>Дальний переход к Mahé с возможной остановкой для купания в районе St&nbsp;Anne или Ile&nbsp;Moyenne.[web:32][web:34]</li>
+                      <li>Прибытие в марину Eden Island / Victoria, заправка и подготовка яхты к сдаче; 17:00 — осмотр Lagoon&nbsp;42 “Golden Bride” чартерной компанией.[web:19][web:33]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/c/c7/Seychelles_La_Digue_Ile_Cocos.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Seychelles_La_Digue_Ile_Cocos.jpg" alt="Острова у Praslin и La Digue">
+                    </a>
+                    <div class="day-photo-caption">Острова вокруг Praslin и La&nbsp;Digue — ваш фон во время возвращения на Mahé.[web:18][web:34]</div>
+                  </div>
+                </div>
+              </article>
 
-        <div class="map">
-          <!-- Условные координаты по контейнеру (x%, y%) -->
-          <!-- Mahé -->
-          <div class="map-label" style="left: 20%; top: 70%;">
-            <div class="bubble">
-              <div class="name">Mahé</div>
-              <div class="meta">Марина • День 1, 7–8</div>
-            </div>
-          </div>
-          <!-- St Anne -->
-          <div class="map-label" style="left: 30%; top: 60%;">
-            <div class="bubble">
-              <div class="name">St&nbsp;Anne</div>
-              <div class="meta">День 2</div>
-            </div>
-          </div>
-          <!-- Praslin -->
-          <div class="map-label" style="left: 55%; top: 40%;">
-            <div class="bubble">
-              <div class="name">Praslin</div>
-              <div class="meta">Дни 3–4</div>
-            </div>
-          </div>
-          <!-- La Digue -->
-          <div class="map-label" style="left: 63%; top: 45%;">
-            <div class="bubble">
-              <div class="name">La&nbsp;Digue</div>
-              <div class="meta">День 5</div>
-            </div>
-          </div>
-          <!-- Iles Cocos -->
-          <div class="map-label" style="left: 68%; top: 38%;">
-            <div class="bubble">
-              <div class="name">Iles Cocos</div>
-              <div class="meta">Снорклинг</div>
-            </div>
-          </div>
-          <!-- Curieuse -->
-          <div class="map-label" style="left: 59%; top: 33%;">
-            <div class="bubble">
-              <div class="name">Curieuse</div>
-              <div class="meta">Черепахи</div>
-            </div>
-          </div>
-          <!-- Cousin -->
-          <div class="map-label" style="left: 50%; top: 35%;">
-            <div class="bubble">
-              <div class="name">Cousin</div>
-              <div class="meta">Резерват</div>
-            </div>
-          </div>
+              <!-- День 8 -->
+              <article class="day">
+                <div class="day-header">
+                  <div class="day-title">День 8 — Суббота, 21 ноября</div>
+                  <div class="day-distance">Mahé • выселение</div>
+                </div>
+                <div class="day-content">
+                  <div>
+                    <ul>
+                      <li>Утреннее выселение с борта (обычно до 8–9 часов по условиям чартера).[web:19][web:33]</li>
+                      <li>При желании — короткий переезд на пляж Beau&nbsp;Vallon для заключительного купания или прогулки перед вылетом.[web:41]</li>
+                    </ul>
+                  </div>
+                  <div class="day-photo">
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/1/18/Beau_Vallon_Beach%2C_Seychelles.jpg" target="_blank" rel="noopener noreferrer">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Beau_Vallon_Beach%2C_Seychelles.jpg" alt="Beau Vallon, Mahé">
+                    </a>
+                    <div class="day-photo-caption">Beau&nbsp;Vallon на Mahé — приятная точка завершения путешествия.[web:41]</div>
+                  </div>
+                </div>
+              </article>
+            </section>
+          </section>
+        </section>
 
-          <!-- Линии маршрута (условная геометрия, пунктир) -->
-          <!-- Mahé → St Anne -->
-          <div class="map-line" style="left: 20%; top: 65%; width: 12%; transform: rotate(-20deg);"></div>
-          <!-- St Anne → Praslin -->
-          <div class="map-line" style="left: 30%; top: 60%; width: 30%; transform: rotate(-15deg);"></div>
-          <!-- Praslin → La Digue -->
-          <div class="map-line" style="left: 55%; top: 40%; width: 11%; transform: rotate(25deg);"></div>
-          <!-- La Digue → Iles Cocos -->
-          <div class="map-line" style="left: 63%; top: 44%; width: 9%; transform: rotate(-35deg);"></div>
-          <!-- Iles Cocos → Curieuse -->
-          <div class="map-line" style="left: 67%; top: 38%; width: 10%; transform: rotate(-170deg);"></div>
-          <!-- Curieuse → Cousin -->
-          <div class="map-line" style="left: 59%; top: 33%; width: 10%; transform: rotate(190deg);"></div>
-          <!-- Cousin → Mahé -->
-          <div class="map-line" style="left: 50%; top: 35%; width: 35%; transform: rotate(200deg);"></div>
-        </div>
+        <!-- TAB 2: Карта -->
+        <section id="map-panel" class="tab-panel">
+          <section class="card">
+            <h2>Карта путешествия</h2>
+            <p class="map-header-extra">
+              Схема маршрута в стиле морских карт: пунктирные линии показывают примерные переходы между основными островами. Не предназначена для навигации — используйте официальные карты и электронные средства.[web:37]
+            </p>
+            <div class="legend">
+              <span><span class="legend-dot dot-start"></span> старт / финиш</span>
+              <span><span class="legend-dot dot-stop"></span> основные стоянки</span>
+              <span><span class="legend-dot dot-route"></span> пунктир переходов</span>
+            </div>
 
-        <p class="footer-note">
-          Схема выполнена в стиле морских карт и служит визуальным представлением маршрута. Для навигации используйте официальные навигационные карты и электронные средства.[web:37]
-        </p>
-      </section>
+            <div class="map-wrapper">
+              <div class="map">
+                <!-- Точки маршрута (условные координаты) -->
+                <!-- Mahé -->
+                <div class="map-label" style="left: 20%; top: 70%;">
+                  <div class="bubble">
+                    <div class="name">Mahé</div>
+                    <div class="meta">Марина • Дни 1, 7–8</div>
+                  </div>
+                </div>
+                <!-- St Anne -->
+                <div class="map-label" style="left: 30%; top: 60%;">
+                  <div class="bubble">
+                    <div class="name">St&nbsp;Anne</div>
+                    <div class="meta">День 2</div>
+                  </div>
+                </div>
+                <!-- Praslin -->
+                <div class="map-label" style="left: 55%; top: 40%;">
+                  <div class="bubble">
+                    <div class="name">Praslin</div>
+                    <div class="meta">Дни 3–4</div>
+                  </div>
+                </div>
+                <!-- La Digue -->
+                <div class="map-label" style="left: 63%; top: 45%;">
+                  <div class="bubble">
+                    <div class="name">La&nbsp;Digue</div>
+                    <div class="meta">День 5</div>
+                  </div>
+                </div>
+                <!-- Iles Cocos -->
+                <div class="map-label" style="left: 68%; top: 38%;">
+                  <div class="bubble">
+                    <div class="name">Iles Cocos</div>
+                    <div class="meta">Снорклинг</div>
+                  </div>
+                </div>
+                <!-- Curieuse -->
+                <div class="map-label" style="left: 59%; top: 33%;">
+                  <div class="bubble">
+                    <div class="name">Curieuse</div>
+                    <div class="meta">Черепахи</div>
+                  </div>
+                </div>
+                <!-- Cousin -->
+                <div class="map-label" style="left: 50%; top: 35%;">
+                  <div class="bubble">
+                    <div class="name">Cousin</div>
+                    <div class="meta">Резерват</div>
+                  </div>
+                </div>
+
+                <!-- Переходы (пунктирные линии) -->
+                <!-- Mahé → St Anne -->
+                <div class="map-line" style="left: 20%; top: 65%; width: 12%; transform: rotate(-20deg);"></div>
+                <!-- St Anne → Praslin -->
+                <div class="map-line" style="left: 30%; top: 60%; width: 30%; transform: rotate(-15deg);"></div>
+                <!-- Praslin → La Digue -->
+                <div class="map-line" style="left: 55%; top: 40%; width: 11%; transform: rotate(25deg);"></div>
+                <!-- La Digue → Iles Cocos -->
+                <div class="map-line" style="left: 63%; top: 44%; width: 9%; transform: rotate(-35deg);"></div>
+                <!-- Iles Cocos → Curieuse -->
+                <div class="map-line" style="left: 67%; top: 38%; width: 10%; transform: rotate(-170deg);"></div>
+                <!-- Curieuse → Cousin -->
+                <div class="map-line" style="left: 59%; top: 33%; width: 10%; transform: rotate(190deg);"></div>
+                <!-- Cousin → Mahé -->
+                <div class="map-line" style="left: 50%; top: 35%; width: 35%; transform: rotate(200deg);"></div>
+              </div>
+            </div>
+
+            <p class="footer-note">
+              Маршрут повторяет логическую последовательность: Mahé → St&nbsp;Anne → Praslin → La&nbsp;Digue → Iles&nbsp;Cocos / Félicité → Curieuse / Cousin → Mahé, с возможными вариациями по погоде и рекомендациям капитана.[web:17][web:18][web:19][web:32][web:34]
+            </p>
+          </section>
+        </section>
+      </div>
     </section>
   </main>
 

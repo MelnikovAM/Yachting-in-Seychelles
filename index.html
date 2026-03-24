@@ -51,7 +51,7 @@
     }
 
     main {
-      max-width: 1400px; /* шире страницы */
+      max-width: 1600px; /* шире страницы */
       margin: 0 auto;
       padding: 0 16px 40px;
     }
@@ -89,7 +89,6 @@
       opacity: 0;
       pointer-events: none;
     }
-    /* Активный таб */
     #tab-route:checked ~ .tabs-nav label[for="tab-route"],
     #tab-map:checked ~ .tabs-nav label[for="tab-map"] {
       color: #0f172a;
@@ -105,7 +104,7 @@
       display: block;
     }
 
-    /* Общие карточки */
+    /* Карточки */
     .card {
       background: var(--bg-soft);
       border-radius: 16px;
@@ -121,14 +120,14 @@
       color: var(--accent);
     }
 
-    /* План путешествия */
+    /* План путешествия — шире, чем раньше (1,5x) */
     .layout-wide {
       display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr); /* шире блоков */
-      gap: 24px;
+      grid-template-columns: minmax(0, 2.7fr) minmax(0, 1.3fr); /* шире блок с датами */
+      gap: 28px;
       align-items: flex-start;
     }
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       .layout-wide {
         grid-template-columns: 1fr;
       }
@@ -163,7 +162,7 @@
 
     .route-summary {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 10px;
       margin-top: 8px;
     }
@@ -220,11 +219,11 @@
     }
     .day-content {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr); /* шире блок, шире фото */
-      gap: 10px;
+      grid-template-columns: minmax(0, 2.3fr) minmax(220px, 1fr); /* шире текст, шире фото */
+      gap: 12px;
       margin-top: 6px;
     }
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
       .day-content {
         grid-template-columns: 1fr;
       }
@@ -242,7 +241,7 @@
       position: relative;
       border: 1px solid rgba(148,163,184,0.7);
       background: #e5e7eb;
-      min-height: 140px;
+      min-height: 150px;
     }
     .day-photo a {
       display: block;
@@ -317,32 +316,30 @@
     }
     .map {
       position: relative;
-      background:
-        radial-gradient(circle at 1px 1px, rgba(148,163,184,0.5) 1px, transparent 0),
-        #e0f2fe;
-      background-size: 32px 32px;
       border-radius: 14px;
       border: 1px solid rgba(148,163,184,0.9);
-      height: 420px;
+      height: 500px;
       overflow: hidden;
+      background: #e0f2fe;
+    }
+    .map-tile {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.05);
     }
     .map::before {
-      content: "N";
+      content: "OpenStreetMap";
       position: absolute;
-      right: 10px;
-      top: 8px;
+      left: 10px;
+      bottom: 6px;
       font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-    }
-    .map::after {
-      content: "";
-      position: absolute;
-      right: 14px;
-      top: 22px;
-      width: 1px;
-      height: 36px;
-      background: linear-gradient(to bottom, #4b5563 0, #4b5563 8px, transparent 8px, transparent 16px, #4b5563 16px, #4b5563 24px, transparent 24px, transparent 32px, #4b5563 32px, #4b5563 36px);
+      color: rgba(15,23,42,0.7);
+      background: rgba(255,255,255,0.85);
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      z-index: 3;
     }
 
     .map-label {
@@ -369,7 +366,7 @@
       border-top: 2px dotted #0ea5e9;
       transform-origin: left center;
       z-index: 1;
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
     .footer-note {
@@ -395,17 +392,14 @@
 
   <main>
     <section class="tabs">
-      <!-- Радиокнопки для табов -->
       <input type="radio" name="main-tabs" id="tab-route" checked>
       <input type="radio" name="main-tabs" id="tab-map">
 
-      <!-- Навигация табов -->
       <div class="tabs-nav">
         <label for="tab-route">Маршрут путешествия</label>
         <label for="tab-map">Карта путешествия</label>
       </div>
 
-      <!-- Контент табов -->
       <div class="tab-panels">
         <!-- TAB 1: Маршрут -->
         <section id="route-panel" class="tab-panel">
@@ -461,10 +455,10 @@
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/6/64/Victoria%2C_Seychelles_harbour.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Victoria%2C_Seychelles_harbour.jpg" alt="Гавань Виктории, Mahé">
+                    <a href="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?auto=format&fit=crop&w=800&q=80" alt="Гавань на Сейшелах, вечер">
                     </a>
-                    <div class="day-photo-caption">Гавань Виктории на Mahé — атмосферное место для первого вечера и знакомства с Сейшелами.[web:41]</div>
+                    <div class="day-photo-caption">Первый вечер в марине на Mahé — время выдохнуть и переключиться на островной ритм.[web:59]</div>
                   </div>
                 </div>
               </article>
@@ -478,16 +472,16 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>Неспешный выход из марины после утренних сборов и инструктажа, короткий переход к St&nbsp;Anne Marine National Park.[web:19][web:22][web:32]</li>
-                      <li>Стоянка на якоре у одного из островков (Moyenne, Sainte&nbsp;Anne) с бирюзовой водой и песчаными отмелями.[web:19][web:22]</li>
-                      <li>Снорклинг над коралловыми рифами, прогулки по острову Moyenne среди пальм, гранита и свободно гуляющих черепах.[web:22][web:38]</li>
+                      <li>Неспешный выход из марины и короткий переход к St&nbsp;Anne Marine National Park — архипелагу небольших островов в бирюзовой лагуне.[web:19][web:22][web:32]</li>
+                      <li>Стоянка на якоре у одного из островков (Moyenne, Sainte&nbsp;Anne), купание и снорклинг над рифами с тропическими рыбами.[web:19][web:22][web:38]</li>
+                      <li>Прогулка по острову Moyenne по тропам среди пальм и гранитных валунов, наблюдение за черепахами.[web:22][web:38]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/5/52/Sainte_Anne_Marine_National_Park%2C_Seychelles.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Sainte_Anne_Marine_National_Park%2C_Seychelles.jpg" alt="St Anne Marine National Park">
+                    <a href="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=80" alt="Лагуна с гранитными скалами и пальмами">
                     </a>
-                    <div class="day-photo-caption">St&nbsp;Anne Marine National Park — заповедные лагуны и рифы всего в нескольких милях от Mahé.[web:22][web:38]</div>
+                    <div class="day-photo-caption">Заповедные лагуны St&nbsp;Anne: бирюзовая вода, рифы и гранитные скалы у кромки воды.[web:38][web:59]</div>
                   </div>
                 </div>
               </article>
@@ -501,16 +495,16 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>Утренний переход к Praslin по открытой воде — первое полноценное «путешествие» между островами.[web:17][web:18][web:34]</li>
-                      <li>Постановка на якорь в Baie Sainte Anne, удобной гавани с паромным терминалом, кафе и инфраструктурой.[web:17][web:34]</li>
-                      <li>Прогулка по набережной, подготовка к экскурсии в Vallée de&nbsp;Mai на следующий день.[web:38]</li>
+                      <li>Утренний переход к Praslin по открытой воде, с постоянным видом на зелёные острова на горизонте.[web:17][web:18][web:34]</li>
+                      <li>Постановка в Baie Sainte Anne — гавани с кафе, магазинами и удобным доступом на берег.[web:17][web:34]</li>
+                      <li>Прогулка по набережной и отдых перед посещением Vallée de&nbsp;Mai на следующий день.[web:38]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/a/a3/Praslin_Baie_Sainte_Anne.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Praslin_Baie_Sainte_Anne.jpg" alt="Praslin, Baie Sainte Anne">
+                    <a href="https://images.unsplash.com/photo-1601758260935-71c55f9af8eb?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1601758260935-71c55f9af8eb?auto=format&fit=crop&w=800&q=80" alt="Катамаран у тропического острова">
                     </a>
-                    <div class="day-photo-caption">Baie Sainte Anne на Praslin — ворота к Vallée de&nbsp;Mai и северным пляжам острова.[web:17][web:38]</div>
+                    <div class="day-photo-caption">Катамаран на якоре у тропического острова — то, ради чего затеян весь маршрут.[web:59]</div>
                   </div>
                 </div>
               </article>
@@ -524,16 +518,16 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>Экскурсия в Vallée de&nbsp;Mai: тропический лес, древние пальмы coco de&nbsp;mer и тропы, включённые в список ЮНЕСКО.[web:17][web:18][web:44]</li>
-                      <li>Короткий переход к Anse&nbsp;Lazio на северо-западе Praslin, одному из самых знаменитых пляжей архипелага.[web:18][web:38]</li>
-                      <li>Плавание, снорклинг у гранитных валунов и мягкий закат над бухтой.[web:38]</li>
+                      <li>Экскурсия в Vallée de&nbsp;Mai: древний тропический лес с пальмами coco de&nbsp;mer и объект всемирного наследия ЮНЕСКО.[web:17][web:18][web:44]</li>
+                      <li>Небольшой переход к Anse&nbsp;Lazio — одному из самых известных пляжей на Praslin.[web:18][web:38]</li>
+                      <li>Плавание, снорклинг у гранитных валунов и закат над бухтой с гладкой водой.[web:38]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/0/0c/Anse_Lazio_2_Prasein_Seychelles_2852906445.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Anse_Lazio_2_Prasein_Seychelles_2852906445.jpg" alt="Anse Lazio, Praslin">
+                    <a href="https://images.unsplash.com/photo-1586769852044-692d6e3703c8?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1586769852044-692d6e3703c8?auto=format&fit=crop&w=800&q=80" alt="Пляж с гранитными валунами на Сейшелах">
                     </a>
-                    <div class="day-photo-caption">Anse&nbsp;Lazio — идеальный пляж: белый песок, зелень и гранитные глыбы в лазурной воде.[web:38]</div>
+                    <div class="day-photo-caption">Северные пляжи Praslin: сочетание белого песка, зелени и гладких гранитных глыб.[web:38][web:59]</div>
                   </div>
                 </div>
               </article>
@@ -547,16 +541,16 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>Переход к La&nbsp;Digue — камерному острову без автомобилей, где основные транспортные средства — велосипеды и воловьи повозки.[web:17][web:18][web:41]</li>
-                      <li>Велопрогулка через L’Union Estate к Anse Source d’Argent: кокосовые плантации, старый маслобойный пресс и гранитные ландшафты.[web:35][web:38]</li>
-                      <li>Купание на Anse Source d’Argent, входящем в списки самых фотогеничных пляжей мира.[web:35][web:38]</li>
+                      <li>Переход к La&nbsp;Digue — острову, где основной транспорт — велосипеды, а жизнь течёт очень неторопливо.[web:17][web:18][web:41]</li>
+                      <li>Велопрогулка через L’Union Estate к Anse Source d’Argent: плантации, старые постройки и выход к знаменитому пляжу.[web:35][web:38]</li>
+                      <li>Купание и фотографии на Anse Source d’Argent с его фантастическими гранитными скалами и спокойной лагуной.[web:35][web:38]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/9/98/Anse_Source_d%27Argent_2-La_Digue.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Anse_Source_d%27Argent_2-La_Digue.jpg" alt="Anse Source d’Argent, La Digue">
+                    <a href="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80" alt="Anse Source d’Argent, La Digue">
                     </a>
-                    <div class="day-photo-caption">Anse&nbsp;Source d’Argent на La&nbsp;Digue — визитная открытка Сейшел.[web:35][web:38]</div>
+                    <div class="day-photo-caption">Anse&nbsp;Source d’Argent на La&nbsp;Digue — визитная открытка Сейшел и рай для фотографий.[web:35][web:57]</div>
                   </div>
                 </div>
               </article>
@@ -570,16 +564,16 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>Короткий переход к Iles&nbsp;Cocos и Félicité — маленьким островам с яркими рифами и богатой подводной жизнью, популярным у снорклеров.[web:17][web:18][web:30]</li>
-                      <li>Переход к Curieuse: прогулка по мангровым тропам, посещение центра гигантских черепах и наблюдение за мангровыми экосистемами.[web:17][web:19][web:22]</li>
-                      <li>Закат у St&nbsp;Pierre с его характерной группой пальм и гранитных валунов — естественная «визитка» северных островов.[web:17][web:19]</li>
+                      <li>Короткий переход к Iles&nbsp;Cocos и Félicité — маленьким островам с богатой подводной жизнью и отличными спотами для снорклинга.[web:17][web:18][web:30]</li>
+                      <li>Переход к Curieuse: прогулка по мангровым тропам, наблюдение за гигантскими черепахами в резервате.[web:17][web:19][web:22][web:63]</li>
+                      <li>Закат у St&nbsp;Pierre — небольшого гранитного островка с пальмами, идеально смотрящегося со стоящего на якоре катамарана.[web:17][web:19]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/0/0e/Curieuse_Island%2C_Seychelles.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Curieuse_Island%2C_Seychelles.jpg" alt="Curieuse, Seychelles">
+                    <a href="https://images.unsplash.com/photo-1623259135976-08aa0fd0203a?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1623259135976-08aa0fd0203a?auto=format&fit=crop&w=800&q=80" alt="Остров с пальмами и гранитными скалами, Сейшелы">
                     </a>
-                    <div class="day-photo-caption">Curieuse — остров-резерват с черепахами и мангровыми тропами вдоль лагун.[web:17][web:22]</div>
+                    <div class="day-photo-caption">Небольшие гранитные острова у Praslin и La&nbsp;Digue — идеальные места для дневных стоянок.[web:59][web:63]</div>
                   </div>
                 </div>
               </article>
@@ -593,16 +587,16 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>По погоде — утренний заход к Cousin (строго охраняемый природный резерват с морскими птицами и редкими видами).[web:19][web:22][web:34]</li>
-                      <li>Дальний переход к Mahé с возможной остановкой для купания в районе St&nbsp;Anne или Ile&nbsp;Moyenne.[web:32][web:34]</li>
-                      <li>Прибытие в марину Eden Island / Victoria, заправка и подготовка яхты к сдаче; 17:00 — осмотр Lagoon&nbsp;42 “Golden Bride” чартерной компанией.[web:19][web:33]</li>
+                      <li>По погоде — заход к Cousin (строго охраняемый природный резерват с морскими птицами и редкими видами).[web:19][web:22][web:34]</li>
+                      <li>Длинный переход к Mahé с возможной остановкой на короткое купание в районе St&nbsp;Anne или Ile&nbsp;Moyenne.[web:32][web:34]</li>
+                      <li>Прибытие в марину Eden Island / Victoria, заправка и подготовка к сдаче; 17:00 — осмотр Lagoon&nbsp;42 “Golden Bride” чартерной компанией.[web:19][web:33]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/c/c7/Seychelles_La_Digue_Ile_Cocos.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Seychelles_La_Digue_Ile_Cocos.jpg" alt="Острова у Praslin и La Digue">
+                    <a href="https://images.unsplash.com/photo-1600783245893-2a96754fd9d9?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1600783245893-2a96754fd9d9?auto=format&fit=crop&w=800&q=80" alt="Катамаран в закатном свете">
                     </a>
-                    <div class="day-photo-caption">Острова вокруг Praslin и La&nbsp;Digue — ваш фон во время возвращения на Mahé.[web:18][web:34]</div>
+                    <div class="day-photo-caption">Последний полноценный день на воде — возвращение на Mahé через острова и лагуны.[web:59]</div>
                   </div>
                 </div>
               </article>
@@ -616,15 +610,15 @@
                 <div class="day-content">
                   <div>
                     <ul>
-                      <li>Утреннее выселение с борта (обычно до 8–9 часов по условиям чартера).[web:19][web:33]</li>
-                      <li>При желании — короткий переезд на пляж Beau&nbsp;Vallon для заключительного купания или прогулки перед вылетом.[web:41]</li>
+                      <li>Утреннее выселение с борта (как правило, до 8–9 часов по условиям чартера).[web:19][web:33]</li>
+                      <li>Время на короткую прогулку по пляжу Beau&nbsp;Vallon или покупку сувениров перед вылетом.[web:41]</li>
                     </ul>
                   </div>
                   <div class="day-photo">
-                    <a href="https://upload.wikimedia.org/wikipedia/commons/1/18/Beau_Vallon_Beach%2C_Seychelles.jpg" target="_blank" rel="noopener noreferrer">
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Beau_Vallon_Beach%2C_Seychelles.jpg" alt="Beau Vallon, Mahé">
+                    <a href="https://images.unsplash.com/photo-1521292270410-a8c53642e9d0?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
+                      <img src="https://images.unsplash.com/photo-1521292270410-a8c53642e9d0?auto=format&fit=crop&w=800&q=80" alt="Пляж на Mahé, Сейшелы">
                     </a>
-                    <div class="day-photo-caption">Beau&nbsp;Vallon на Mahé — приятная точка завершения путешествия.[web:41]</div>
+                    <div class="day-photo-caption">Пляж на Mahé — спокойное завершение путешествия и прощальный взгляд на океан.[web:57][web:59]</div>
                   </div>
                 </div>
               </article>
@@ -637,7 +631,7 @@
           <section class="card">
             <h2>Карта путешествия</h2>
             <p class="map-header-extra">
-              Схема маршрута в стиле морских карт: пунктирные линии показывают примерные переходы между основными островами. Не предназначена для навигации — используйте официальные карты и электронные средства.[web:37]
+              Карта на основе OpenStreetMap с примерной схемой переходов и основных точек маршрута. Линии на схеме ориентировочные; для навигации используйте официальные карты и электронные средства.[web:55][web:58][web:61]
             </p>
             <div class="legend">
               <span><span class="legend-dot dot-start"></span> старт / финиш</span>
@@ -647,77 +641,70 @@
 
             <div class="map-wrapper">
               <div class="map">
-                <!-- Точки маршрута (условные координаты) -->
-                <!-- Mahé -->
-                <div class="map-label" style="left: 20%; top: 70%;">
+                <!-- статичный тайл OSM через Geoapify demo-ключ (пример) -->
+                <img
+                  class="map-tile"
+                  src="https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=1200&height=800&center=lonlat:55.47,-4.61&zoom=9&apiKey=8c7a2b9e1f3c4d7e9d8c7a2b9e1f3c4"
+                  alt="Карта маршрута на основе OpenStreetMap"
+                >
+
+                <!-- Метки -->
+                <div class="map-label" style="left: 24%; top: 68%;">
                   <div class="bubble">
                     <div class="name">Mahé</div>
                     <div class="meta">Марина • Дни 1, 7–8</div>
                   </div>
                 </div>
-                <!-- St Anne -->
                 <div class="map-label" style="left: 30%; top: 60%;">
                   <div class="bubble">
                     <div class="name">St&nbsp;Anne</div>
                     <div class="meta">День 2</div>
                   </div>
                 </div>
-                <!-- Praslin -->
-                <div class="map-label" style="left: 55%; top: 40%;">
+                <div class="map-label" style="left: 60%; top: 40%;">
                   <div class="bubble">
                     <div class="name">Praslin</div>
                     <div class="meta">Дни 3–4</div>
                   </div>
                 </div>
-                <!-- La Digue -->
-                <div class="map-label" style="left: 63%; top: 45%;">
+                <div class="map-label" style="left: 68%; top: 45%;">
                   <div class="bubble">
                     <div class="name">La&nbsp;Digue</div>
                     <div class="meta">День 5</div>
                   </div>
                 </div>
-                <!-- Iles Cocos -->
-                <div class="map-label" style="left: 68%; top: 38%;">
+                <div class="map-label" style="left: 72%; top: 38%;">
                   <div class="bubble">
                     <div class="name">Iles Cocos</div>
                     <div class="meta">Снорклинг</div>
                   </div>
                 </div>
-                <!-- Curieuse -->
-                <div class="map-label" style="left: 59%; top: 33%;">
+                <div class="map-label" style="left: 62%; top: 34%;">
                   <div class="bubble">
                     <div class="name">Curieuse</div>
                     <div class="meta">Черепахи</div>
                   </div>
                 </div>
-                <!-- Cousin -->
-                <div class="map-label" style="left: 50%; top: 35%;">
+                <div class="map-label" style="left: 54%; top: 36%;">
                   <div class="bubble">
                     <div class="name">Cousin</div>
                     <div class="meta">Резерват</div>
                   </div>
                 </div>
 
-                <!-- Переходы (пунктирные линии) -->
-                <!-- Mahé → St Anne -->
-                <div class="map-line" style="left: 20%; top: 65%; width: 12%; transform: rotate(-20deg);"></div>
-                <!-- St Anne → Praslin -->
-                <div class="map-line" style="left: 30%; top: 60%; width: 30%; transform: rotate(-15deg);"></div>
-                <!-- Praslin → La Digue -->
-                <div class="map-line" style="left: 55%; top: 40%; width: 11%; transform: rotate(25deg);"></div>
-                <!-- La Digue → Iles Cocos -->
-                <div class="map-line" style="left: 63%; top: 44%; width: 9%; transform: rotate(-35deg);"></div>
-                <!-- Iles Cocos → Curieuse -->
-                <div class="map-line" style="left: 67%; top: 38%; width: 10%; transform: rotate(-170deg);"></div>
-                <!-- Curieuse → Cousin -->
-                <div class="map-line" style="left: 59%; top: 33%; width: 10%; transform: rotate(190deg);"></div>
-                <!-- Cousin → Mahé -->
-                <div class="map-line" style="left: 50%; top: 35%; width: 35%; transform: rotate(200deg);"></div>
+                <!-- Переходы (пунктирные линии по карте) -->
+                <div class="map-line" style="left: 24%; top: 64%; width: 9%; transform: rotate(-25deg);"></div>
+                <div class="map-line" style="left: 30%; top: 60%; width: 32%; transform: rotate(-15deg);"></div>
+                <div class="map-line" style="left: 60%; top: 40%; width: 10%; transform: rotate(25deg);"></div>
+                <div class="map-line" style="left: 68%; top: 44%; width: 8%; transform: rotate(-35deg);"></div>
+                <div class="map-line" style="left: 72%; top: 38%; width: 11%; transform: rotate(-170deg);"></div>
+                <div class="map-line" style="left: 62%; top: 34%; width: 10%; transform: rotate(190deg);"></div>
+                <div class="map-line" style="left: 54%; top: 36%; width: 34%; transform: rotate(200deg);"></div>
               </div>
             </div>
 
             <p class="footer-note">
-              Маршрут повторяет логическую последовательность: Mahé → St&nbsp;Anne → Praslin → La&nbsp;Digue → Iles&nbsp;Cocos / Félicité → Curieuse / Cousin → Mahé, с возможными вариациями по погоде и рекомендациям капитана.[web:17][web:18][web:19][web:32][web:34]
+              Центр карты выбран в районе внутренних островов архипелага: Mahé, Praslin, La&nbsp;Digue и Curieuse, на основе данных OpenStreetMap и типовых маршрутов яхтинга.[web:18][web:32][web:55][web:58]
             </p>
           </section>
         </section>

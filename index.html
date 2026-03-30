@@ -2,741 +2,787 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Yachting in Seychelles — Lagoon 42 Golden Bride</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Яхтинг на катамаране · Сейшелы · 14–21 ноября 2026</title>
+  <meta name="description" content="Недельный круиз на катамаране с базой в марине Маэ: маршрут, карта, снаряжение и безопасность.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     :root {
-      --bg: #f4f6fa;
-      --bg-soft: #ffffff;
-      --border-soft: #d7dde9;
-      --accent: #0077b6;
-      --accent-soft: rgba(0,119,182,0.08);
-      --text-main: #1b2333;
-      --text-muted: #6b7280;
-      --pill-bg: #eef2ff;
-      --danger: #c05621;
-      --shadow-soft: 0 18px 40px rgba(15,23,42,0.08);
+      --bg: #0c1e24;
+      --bg-soft: #132a32;
+      --surface: #1a3842;
+      --text: #e8f4f2;
+      --muted: #9db8b5;
+      --accent: #3ec9b8;
+      --accent-dim: #2a9d8f;
+      --sand: #e8d5b5;
+      --warning: #f4a261;
+      --radius: 14px;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #ffffff 0, #f1f4fb 35%, #e2e8f0 100%);
-      color: var(--text-main);
-      line-height: 1.5;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.65;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    header {
-      padding: 32px 16px 16px;
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 1.25rem 4rem;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem 1.25rem 3rem;
+      background:
+        linear-gradient(180deg, rgba(12, 30, 36, 0.15) 0%, rgba(12, 30, 36, 0.92) 78%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231a4d52'/%3E%3Cstop offset='50%25' style='stop-color:%230d2830'/%3E%3Cstop offset='100%25' style='stop-color:%2314353d'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='1440' height='900'/%3E%3Cpath fill='%233ec9b8' fill-opacity='0.08' d='M0 520 Q360 480 720 540 T1440 500 L1440 900 L0 900 Z'/%3E%3C/svg%3E") center/cover no-repeat;
+      border-bottom: 1px solid rgba(62, 201, 184, 0.15);
+    }
+
+    .hero-inner {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.1rem, 5vw, 3.25rem);
+      line-height: 1.12;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .dates {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--sand);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #062a26;
+      font-weight: 600;
+      padding: 0.75rem 1.35rem;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-cta:hover {
+      background: #52dfd0;
+      text-decoration: none;
+    }
+
+    /* Nav */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12, 30, 36, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(62, 201, 184, 0.12);
+    }
+
+    .nav-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 1rem;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+
+    .nav-inner a {
+      color: var(--muted);
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .nav-inner a:hover {
+      color: var(--text);
+      background: var(--surface);
+      text-decoration: none;
+    }
+
+    section {
+      padding-top: 3.25rem;
+      scroll-margin-top: 3.5rem;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--sand);
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.65rem;
+      color: var(--text);
+    }
+
+    .lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat {
+      background: var(--bg-soft);
+      border: 1px solid rgba(62, 201, 184, 0.12);
+      border-radius: var(--radius);
+      padding: 1.1rem 1rem;
       text-align: center;
     }
-    header h1 {
-      margin: 0 0 8px;
-      font-size: 2.6rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #0f172a;
-    }
-    header p {
-      margin: 4px 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-    .tagline {
-      margin-top: 8px;
-      font-style: italic;
-      color: var(--accent);
-    }
 
-    main {
-      max-width: 1600px; /* шире страницы */
-      margin: 0 auto;
-      padding: 0 16px 40px;
-    }
-
-    /* Табы */
-    .tabs {
-      margin-top: 8px;
-    }
-    .tabs-nav {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-      border-bottom: 1px solid var(--border-soft);
-      overflow-x: auto;
-    }
-    .tabs-nav label {
-      position: relative;
-      padding: 8px 14px;
-      border-radius: 10px 10px 0 0;
-      cursor: pointer;
-      font-size: 0.9rem;
-      white-space: nowrap;
-      color: var(--text-muted);
-      border: 1px solid transparent;
-      border-bottom: none;
-      background: transparent;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-    }
-    .tabs-nav label:hover {
-      background: #e5f0ff;
-      color: var(--accent);
-    }
-    input[name="main-tabs"] {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-    #tab-route:checked ~ .tabs-nav label[for="tab-route"],
-    #tab-map:checked ~ .tabs-nav label[for="tab-map"] {
-      color: #0f172a;
-      background: var(--bg-soft);
-      border-color: var(--border-soft);
-      border-bottom: 1px solid var(--bg-soft);
-    }
-    .tab-panel {
-      display: none;
-    }
-    #tab-route:checked ~ .tab-panels #route-panel,
-    #tab-map:checked ~ .tab-panels #map-panel {
+    .stat strong {
       display: block;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--accent);
+      line-height: 1.2;
     }
 
-    /* Карточки */
+    .stat span {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin: 1rem 0 0;
+    }
+
+    .pill {
+      background: var(--surface);
+      border: 1px solid rgba(62, 201, 184, 0.2);
+      border-radius: 999px;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    /* Map */
+    #map {
+      height: 420px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(62, 201, 184, 0.2);
+      margin: 1rem 0 0.5rem;
+      z-index: 1;
+    }
+
+    .map-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+
+    /* Itinerary */
+    .day {
+      background: var(--bg-soft);
+      border-radius: var(--radius);
+      border: 1px solid rgba(62, 201, 184, 0.1);
+      margin-bottom: 1.15rem;
+      overflow: hidden;
+    }
+
+    .day-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 1rem 1.15rem 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .day-date {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+
+    .day-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      margin: 0;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .day-badge {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--surface);
+      color: var(--muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .day-badge.no-sail {
+      background: rgba(244, 162, 97, 0.15);
+      color: var(--warning);
+    }
+
+    .day-body {
+      padding: 0.85rem 1.15rem 1.15rem;
+    }
+
+    .day-body ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .day-body li {
+      margin-bottom: 0.35rem;
+    }
+
+    .day-meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      border: 1px solid rgba(62, 201, 184, 0.15);
+      padding: 0.65rem 0.75rem;
+      text-align: left;
+    }
+
+    th {
+      background: var(--surface);
+      color: var(--sand);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Lists sections */
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
     .card {
       background: var(--bg-soft);
-      border-radius: 16px;
-      padding: 18px 20px;
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-    }
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 1.3rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    /* План путешествия — шире, чем раньше (1,5x) */
-    .layout-wide {
-      display: grid;
-      grid-template-columns: minmax(0, 2.7fr) minmax(0, 1.3fr); /* шире блок с датами */
-      gap: 28px;
-      align-items: flex-start;
-    }
-    @media (max-width: 1100px) {
-      .layout-wide {
-        grid-template-columns: 1fr;
-      }
+      border-radius: var(--radius);
+      border: 1px solid rgba(62, 201, 184, 0.12);
+      padding: 1.15rem 1.25rem;
     }
 
     .card h3 {
-      margin: 14px 0 6px;
+      margin-top: 0;
       font-size: 1.05rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-    }
-    .pill {
-      border-radius: 999px;
-      border: 1px solid rgba(129,140,248,0.4);
-      padding: 4px 10px;
-      font-size: 0.78rem;
-      color: var(--text-main);
-      background: var(--pill-bg);
-    }
-    .pill strong {
-      color: var(--accent);
-      font-weight: 600;
+    .card ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
     }
 
-    .route-summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .summary-item {
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: #f8fafc;
-      border: 1px solid rgba(148,163,184,0.4);
-      font-size: 0.85rem;
-    }
-    .summary-item div:first-child {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .summary-item div:last-child {
-      margin-top: 2px;
-      font-weight: 600;
-    }
-
-    .warning {
-      margin-top: 10px;
-      padding: 8px 9px;
-      border-radius: 12px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      font-size: 0.8rem;
-      color: #9a3412;
-    }
-    .warning strong { color: #9a3412; }
-
-    .day {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px dashed rgba(148,163,184,0.7);
-    }
-    .day-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .day-title {
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-size: 0.9rem;
-    }
-    .day-distance {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    .day-content {
-      display: grid;
-      grid-template-columns: minmax(0, 2.3fr) minmax(220px, 1fr); /* шире текст, шире фото */
-      gap: 12px;
-      margin-top: 6px;
-    }
-    @media (max-width: 900px) {
-      .day-content {
-        grid-template-columns: 1fr;
-      }
-    }
-    .day ul {
-      margin: 6px 0 0 0;
-      padding-left: 18px;
-      font-size: 0.9rem;
-    }
-    .day li { margin-bottom: 3px; }
-
-    .day-photo {
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: #e5e7eb;
-      min-height: 150px;
-    }
-    .day-photo a {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .day-photo img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.2s ease-out;
-    }
-    .day-photo:hover img {
-      transform: scale(1.03);
-    }
-    .day-photo-caption {
-      position: absolute;
-      left: 6px;
-      bottom: 6px;
-      right: 6px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.7);
-      color: #e5e7eb;
-      font-size: 0.72rem;
-      text-align: center;
-    }
-
-    /* Карта */
-    .map-card h2 {
-      margin-bottom: 8px;
-    }
-    .map-header-extra {
-      margin-bottom: 8px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-    .legend span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: #f8fafc;
-      border: 1px solid var(--border-soft);
-    }
-    .legend-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-    }
-    .dot-start { background: #16a34a; }
-    .dot-stop { background: #f59e0b; }
-    .dot-route {
-      width: 16px;
-      height: 0;
-      border-top: 2px dotted #0ea5e9;
-      border-radius: 0;
-    }
-
-    .map-wrapper {
-      margin-top: 8px;
-    }
-    .map {
-      position: relative;
-      border-radius: 14px;
-      border: 1px solid rgba(148,163,184,0.9);
-      height: 500px;
-      overflow: hidden;
-      background: #e0f2fe;
-    }
-    .map-tile {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(1.05) contrast(1.05);
-    }
-    .map::before {
-      content: "OpenStreetMap";
-      position: absolute;
-      left: 10px;
-      bottom: 6px;
-      font-size: 0.7rem;
-      color: rgba(15,23,42,0.7);
-      background: rgba(255,255,255,0.85);
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      z-index: 3;
-    }
-
-    .map-label {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      font-size: 0.75rem;
-      white-space: nowrap;
-      z-index: 2;
-    }
-    .map-label .bubble {
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.95);
-      border: 1px solid rgba(148,163,184,0.9);
-    }
-    .map-label .name { font-weight: 600; }
-    .map-label .meta {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .map-line {
-      position: absolute;
-      border-top: 2px dotted #0ea5e9;
-      transform-origin: left center;
-      z-index: 1;
-      opacity: 0.95;
-    }
-
-    .footer-note {
-      margin-top: 12px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+    .callout {
+      border-left: 4px solid var(--accent-dim);
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      background: rgba(62, 201, 184, 0.08);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-size: 0.95rem;
     }
 
     footer {
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(62, 201, 184, 0.15);
+      font-size: 0.88rem;
+      color: var(--muted);
       text-align: center;
-      padding: 12px 16px 22px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      .nav-inner {
+        justify-content: flex-start;
+      }
+
+      th, td {
+        font-size: 0.82rem;
+        padding: 0.45rem 0.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Yachting in Seychelles</h1>
-    <p>14–21 ноября 2026 • Lagoon 42 “Golden Bride” • Mahé, Seychelles</p>
-    <p class="tagline">Семидневный маршрут вокруг внутренних островов: Mahé, Praslin, La&nbsp;Digue, Curieuse, Cousin и St&nbsp;Anne.</p>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Индийский океан · Сейшельские острова</p>
+      <h1>Яхтинг на катамаране<br>от марины Маэ</h1>
+      <p class="dates">14–21 ноября 2026</p>
+      <a class="hero-cta" href="#itinerary">Смотреть маршрут</a>
+    </div>
   </header>
 
-  <main>
-    <section class="tabs">
-      <input type="radio" name="main-tabs" id="tab-route" checked>
-      <input type="radio" name="main-tabs" id="tab-map">
+  <nav class="nav-bar" aria-label="Разделы страницы">
+    <div class="nav-inner">
+      <a href="#overview">Обзор</a>
+      <a href="#map-section">Карта</a>
+      <a href="#itinerary">По дням</a>
+      <a href="#gear">Снаряжение</a>
+      <a href="#marina">Марина и логистика</a>
+      <a href="#safety">Безопасность</a>
+    </div>
+  </nav>
 
-      <div class="tabs-nav">
-        <label for="tab-route">Маршрут путешествия</label>
-        <label for="tab-map">Карта путешествия</label>
+  <main class="wrap">
+
+    <section id="overview">
+      <h2>Обзор</h2>
+      <p class="lead">
+        Неделя на парусном катамаране с базой в марине на Маэ: внутренние острова Гранд-Сейш,
+        якорные стоянки у коралловых рифов, заповедники и пляжи мирового уровня. Маршрут ориентировочный —
+        окончательные переходы и стоянки зависят от ветра, зыби и рекомендаций чартера.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>7 ночей</strong>
+          <span>на борту</span>
+        </div>
+        <div class="stat">
+          <strong>Маэ</strong>
+          <span>старт и финиш</span>
+        </div>
+        <div class="stat">
+          <strong>~80–120 NM</strong>
+          <span>всего под парусом*</span>
+        </div>
+        <div class="stat">
+          <strong>ЮВ муссон</strong>
+          <span>типично для ноября</span>
+        </div>
       </div>
+      <p class="map-note">*Пробег зависит от выбранных дневных этапов и погоды.</p>
 
-      <div class="tab-panels">
-        <!-- TAB 1: Маршрут -->
-        <section id="route-panel" class="tab-panel">
-          <section class="layout-wide">
-            <section class="card">
-              <h2>Маршрут по дням</h2>
+      <h3>Почему ноябрь</h3>
+      <p>
+        Во второй половине года на Сейшелах преобладает более сухий сезон; ветер часто умеренный и стабильный
+        для крейсерского хода между островами. Температура воздуха и воды комфортная для купания и снорклинга.
+      </p>
 
-              <div class="route-summary">
-                <div class="summary-item">
-                  <div>Даты чартера</div>
-                  <div>14–21 ноября 2026</div>
-                </div>
-                <div class="summary-item">
-                  <div>Яхта</div>
-                  <div>Lagoon 42 “Golden Bride” (2024)</div>
-                </div>
-                <div class="summary-item">
-                  <div>Формат</div>
-                  <div>1 день — прием яхты, 6 дней — плавание</div>
-                </div>
-                <div class="summary-item">
-                  <div>Оценочная длина</div>
-                  <div>≈ 120–140 морских миль</div>
-                </div>
-                <div class="summary-item">
-                  <div>Время в пути</div>
-                  <div>3–6 часов хода в «переездные» дни</div>
-                </div>
-              </div>
-
-              <div class="pill-row">
-                <span class="pill"><strong>День 1</strong>: спокойный старт в марине Mahé, без переходов</span>
-                <span class="pill">Фокус: природа, пляжи, снорклинг, островные прогулки</span>
-                <span class="pill">Маршрут адаптируется по погоде и рекомендациям капитана</span>
-              </div>
-
-              <div class="warning">
-                <strong>Важно:</strong> фактические переходы и стоянки должны подтверждаться по погоде, навигационным картам и правилам морских парков. План основан на типовых недельных маршрутах по Сейшелам.[web:17][web:18][web:19][web:32][web:34]
-              </div>
-
-              <!-- День 1 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 1 — Суббота, 14 ноября</div>
-                  <div class="day-distance">Mahé • 0 nm · день без переходов</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>16:00 — приём Lagoon&nbsp;42 “Golden Bride” в марине Eden Island / Victoria: брифинг, проверка оборудования, размещение вещей.[web:19][web:33]</li>
-                      <li>Спокойная закупка продуктов и напитков в супермаркетах на Mahé, настройка на отпуск без спешки.[web:41]</li>
-                      <li>Вечерняя прогулка по набережной Виктории, ужин с видом на гавань и подсвеченные горы.[web:41]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?auto=format&fit=crop&w=800&q=80" alt="Гавань на Сейшелах, вечер">
-                    </a>
-                    <div class="day-photo-caption">Первый вечер в марине на Mahé — время выдохнуть и переключиться на островной ритм.[web:59]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 2 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 2 — Воскресенье, 15 ноября</div>
-                  <div class="day-distance">Mahé → St&nbsp;Anne Marine Park • 3–5 nm · 0,5–1 ч</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>Неспешный выход из марины и короткий переход к St&nbsp;Anne Marine National Park — архипелагу небольших островов в бирюзовой лагуне.[web:19][web:22][web:32]</li>
-                      <li>Стоянка на якоре у одного из островков (Moyenne, Sainte&nbsp;Anne), купание и снорклинг над рифами с тропическими рыбами.[web:19][web:22][web:38]</li>
-                      <li>Прогулка по острову Moyenne по тропам среди пальм и гранитных валунов, наблюдение за черепахами.[web:22][web:38]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=80" alt="Лагуна с гранитными скалами и пальмами">
-                    </a>
-                    <div class="day-photo-caption">Заповедные лагуны St&nbsp;Anne: бирюзовая вода, рифы и гранитные скалы у кромки воды.[web:38][web:59]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 3 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 3 — Понедельник, 16 ноября</div>
-                  <div class="day-distance">St&nbsp;Anne → Praslin (Baie Sainte Anne) • ≈ 28 nm · 4–6 ч</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>Утренний переход к Praslin по открытой воде, с постоянным видом на зелёные острова на горизонте.[web:17][web:18][web:34]</li>
-                      <li>Постановка в Baie Sainte Anne — гавани с кафе, магазинами и удобным доступом на берег.[web:17][web:34]</li>
-                      <li>Прогулка по набережной и отдых перед посещением Vallée de&nbsp;Mai на следующий день.[web:38]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1601758260935-71c55f9af8eb?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1601758260935-71c55f9af8eb?auto=format&fit=crop&w=800&q=80" alt="Катамаран у тропического острова">
-                    </a>
-                    <div class="day-photo-caption">Катамаран на якоре у тропического острова — то, ради чего затеян весь маршрут.[web:59]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 4 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 4 — Вторник, 17 ноября</div>
-                  <div class="day-distance">Praslin (Vallée de Mai → Anse Lazio) • 5–10 nm · 1–2 ч</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>Экскурсия в Vallée de&nbsp;Mai: древний тропический лес с пальмами coco de&nbsp;mer и объект всемирного наследия ЮНЕСКО.[web:17][web:18][web:44]</li>
-                      <li>Небольшой переход к Anse&nbsp;Lazio — одному из самых известных пляжей на Praslin.[web:18][web:38]</li>
-                      <li>Плавание, снорклинг у гранитных валунов и закат над бухтой с гладкой водой.[web:38]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1586769852044-692d6e3703c8?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1586769852044-692d6e3703c8?auto=format&fit=crop&w=800&q=80" alt="Пляж с гранитными валунами на Сейшелах">
-                    </a>
-                    <div class="day-photo-caption">Северные пляжи Praslin: сочетание белого песка, зелени и гладких гранитных глыб.[web:38][web:59]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 5 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 5 — Среда, 18 ноября</div>
-                  <div class="day-distance">Praslin (Anse Lazio) → La&nbsp;Digue • 10–12 nm · 2–3 ч</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>Переход к La&nbsp;Digue — острову, где основной транспорт — велосипеды, а жизнь течёт очень неторопливо.[web:17][web:18][web:41]</li>
-                      <li>Велопрогулка через L’Union Estate к Anse Source d’Argent: плантации, старые постройки и выход к знаменитому пляжу.[web:35][web:38]</li>
-                      <li>Купание и фотографии на Anse Source d’Argent с его фантастическими гранитными скалами и спокойной лагуной.[web:35][web:38]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80" alt="Anse Source d’Argent, La Digue">
-                    </a>
-                    <div class="day-photo-caption">Anse&nbsp;Source d’Argent на La&nbsp;Digue — визитная открытка Сейшел и рай для фотографий.[web:35][web:57]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 6 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 6 — Четверг, 19 ноября</div>
-                  <div class="day-distance">La&nbsp;Digue → Iles Cocos/Félicité → Curieuse / St&nbsp;Pierre • 10–15 nm · 3–4 ч</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>Короткий переход к Iles&nbsp;Cocos и Félicité — маленьким островам с богатой подводной жизнью и отличными спотами для снорклинга.[web:17][web:18][web:30]</li>
-                      <li>Переход к Curieuse: прогулка по мангровым тропам, наблюдение за гигантскими черепахами в резервате.[web:17][web:19][web:22][web:63]</li>
-                      <li>Закат у St&nbsp;Pierre — небольшого гранитного островка с пальмами, идеально смотрящегося со стоящего на якоре катамарана.[web:17][web:19]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1623259135976-08aa0fd0203a?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1623259135976-08aa0fd0203a?auto=format&fit=crop&w=800&q=80" alt="Остров с пальмами и гранитными скалами, Сейшелы">
-                    </a>
-                    <div class="day-photo-caption">Небольшие гранитные острова у Praslin и La&nbsp;Digue — идеальные места для дневных стоянок.[web:59][web:63]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 7 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 7 — Пятница, 20 ноября</div>
-                  <div class="day-distance">Curieuse / Praslin → Mahé (через Cousin / St&nbsp;Anne) • 35–45 nm · 5–7 ч</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>По погоде — заход к Cousin (строго охраняемый природный резерват с морскими птицами и редкими видами).[web:19][web:22][web:34]</li>
-                      <li>Длинный переход к Mahé с возможной остановкой на короткое купание в районе St&nbsp;Anne или Ile&nbsp;Moyenne.[web:32][web:34]</li>
-                      <li>Прибытие в марину Eden Island / Victoria, заправка и подготовка к сдаче; 17:00 — осмотр Lagoon&nbsp;42 “Golden Bride” чартерной компанией.[web:19][web:33]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1600783245893-2a96754fd9d9?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1600783245893-2a96754fd9d9?auto=format&fit=crop&w=800&q=80" alt="Катамаран в закатном свете">
-                    </a>
-                    <div class="day-photo-caption">Последний полноценный день на воде — возвращение на Mahé через острова и лагуны.[web:59]</div>
-                  </div>
-                </div>
-              </article>
-
-              <!-- День 8 -->
-              <article class="day">
-                <div class="day-header">
-                  <div class="day-title">День 8 — Суббота, 21 ноября</div>
-                  <div class="day-distance">Mahé • выселение</div>
-                </div>
-                <div class="day-content">
-                  <div>
-                    <ul>
-                      <li>Утреннее выселение с борта (как правило, до 8–9 часов по условиям чартера).[web:19][web:33]</li>
-                      <li>Время на короткую прогулку по пляжу Beau&nbsp;Vallon или покупку сувениров перед вылетом.[web:41]</li>
-                    </ul>
-                  </div>
-                  <div class="day-photo">
-                    <a href="https://images.unsplash.com/photo-1521292270410-a8c53642e9d0?auto=format&fit=crop&w=1600&q=80" target="_blank" rel="noopener noreferrer">
-                      <img src="https://images.unsplash.com/photo-1521292270410-a8c53642e9d0?auto=format&fit=crop&w=800&q=80" alt="Пляж на Mahé, Сейшелы">
-                    </a>
-                    <div class="day-photo-caption">Пляж на Mahé — спокойное завершение путешествия и прощальный взгляд на океан.[web:57][web:59]</div>
-                  </div>
-                </div>
-              </article>
-            </section>
-          </section>
-        </section>
-
-                <!-- TAB 2: Карта -->
-        <section id="map-panel" class="tab-panel">
-          <section class="card">
-            <h2>Карта путешествия</h2>
-            <p class="map-header-extra">
-              Маршрут нанесён на обзорную карту внутренних островов Сейшел: Mahé, Praslin, La&nbsp;Digue и соседние острова. Точки показывают, где проходит каждый день путешествия. Карта носит ознакомительный характер и не предназначена для навигации.[web:75][web:78]
-            </p>
-            <div class="legend">
-              <span><span class="legend-dot dot-start"></span> старт / финиш (Mahé)</span>
-              <span><span class="legend-dot dot-stop"></span> стоянки по дням</span>
-              <span><span class="legend-dot dot-route"></span> направление переходов</span>
-            </div>
-
-            <div class="map-wrapper">
-              <div class="map" style="background:none; border-radius:14px; border:1px solid rgba(148,163,184,0.9); overflow:hidden; position:relative; height:auto;">
-                <!-- Статичная карта: внутренняя картинка (можно кликнуть для увеличения) -->
-                <a href="https://www.seyvillas.com/img/guide/175/map-seychelles-islands-big.jpg" target="_blank" rel="noopener noreferrer">
-                  <img
-                    src="https://www.seyvillas.com/img/guide/175/map-seychelles-islands-big.jpg"
-                    alt="Карта внутренних островов Сейшел (Mahé, Praslin, La Digue и др.)"
-                    style="display:block; width:100%; height:auto;"
-                  >
-                </a>
-
-                <!-- Поверх изображения размещаем условные маркеры (по относительным координатам) -->
-                <!-- Mahé (старт / финиш) -->
-                <div class="map-label" style="left: 20%; top: 68%;">
-                  <div class="bubble">
-                    <div class="name">Mahé</div>
-                    <div class="meta">Дни 1, 7–8</div>
-                  </div>
-                </div>
-
-                <!-- St Anne Marine Park (День 2) -->
-                <div class="map-label" style="left: 24%; top: 62%;">
-                  <div class="bubble">
-                    <div class="name">St&nbsp;Anne</div>
-                    <div class="meta">День 2</div>
-                  </div>
-                </div>
-
-                <!-- Praslin (Дни 3–4) -->
-                <div class="map-label" style="left: 46%; top: 42%;">
-                  <div class="bubble">
-                    <div class="name">Praslin</div>
-                    <div class="meta">Дни 3–4</div>
-                  </div>
-                </div>
-
-                <!-- La Digue (День 5) -->
-                <div class="map-label" style="left: 50%; top: 45%;">
-                  <div class="bubble">
-                    <div class="name">La&nbsp;Digue</div>
-                    <div class="meta">День 5</div>
-                  </div>
-                </div>
-
-                <!-- Iles Cocos (снорклинг) -->
-                <div class="map-label" style="left: 53%; top: 40%;">
-                  <div class="bubble">
-                    <div class="name">Iles Cocos</div>
-                    <div class="meta">Снорклинг</div>
-                  </div>
-                </div>
-
-                <!-- Curieuse -->
-                <div class="map-label" style="left: 44%; top: 38%;">
-                  <div class="bubble">
-                    <div class="name">Curieuse</div>
-                    <div class="meta">Черепахи</div>
-                  </div>
-                </div>
-
-                <!-- Cousin -->
-                <div class="map-label" style="left: 40%; top: 39%;">
-                  <div class="bubble">
-                    <div class="name">Cousin</div>
-                    <div class="meta">Резерват</div>
-                  </div>
-                </div>
-
-                <!-- Переходы пунктиром (ориентировочные линии) -->
-                <!-- Mahé → St Anne -->
-                <div class="map-line" style="left: 20%; top: 65%; width: 8%; transform: rotate(-25deg);"></div>
-                <!-- St Anne → Praslin -->
-                <div class="map-line" style="left: 24%; top: 60%; width: 26%; transform: rotate(-15deg);"></div>
-                <!-- Praslin → La Digue -->
-                <div class="map-line" style="left: 46%; top: 42%; width: 7%; transform: rotate(25deg);"></div>
-                <!-- La Digue → Iles Cocos -->
-                <div class="map-line" style="left: 50%; top: 43%; width: 7%; transform: rotate(-35deg);"></div>
-                <!-- Iles Cocos → Curieuse -->
-                <div class="map-line" style="left: 53%; top: 40%; width: 11%; transform: rotate(-170deg);"></div>
-                <!-- Curieuse → Cousin -->
-                <div class="map-line" style="left: 44%; top: 38%; width: 7%; transform: rotate(190deg);"></div>
-                <!-- Cousin → Mahé -->
-                <div class="map-line" style="left: 40%; top: 39%; width: 24%; transform: rotate(200deg);"></div>
-              </div>
-            </div>
-
-            <p class="footer-note">
-              Положение маркеров на карте ориентировочное и отражает общую логику маршрута: Mahé → St&nbsp;Anne → Praslin → La&nbsp;Digue → Iles&nbsp;Cocos → Curieuse / Cousin → Mahé.[web:75][web:78]
-            </p>
-          </section>
-        </section>
-
+      <div class="pill-grid">
+        <span class="pill">Праслин — Валле-де-Мэ (ЮНЕСКО)</span>
+        <span class="pill">Ла-Диг — Анс-Сорс-д’Аржан</span>
+        <span class="pill">Кюрьёз — гигантские черепахи</span>
+        <span class="pill">Сен-Пьер — снорклинг</span>
       </div>
     </section>
+
+    <section id="map-section">
+      <h2>Карта маршрута</h2>
+      <p class="lead">
+        Приблизительный круговой маршрут: Маэ → внутренние острова → возврат в марину. Точки на карте —
+        ориентиры для планирования, не замена навигационным картам на борту.
+      </p>
+      <div id="map" role="application" aria-label="Карта Сейшельских островов"></div>
+      <p class="map-note">
+        Карта © участники OpenStreetMap · Маршрут условный.
+      </p>
+    </section>
+
+    <section id="itinerary">
+      <h2>По дням</h2>
+      <p class="lead">
+        <strong>14 ноября</strong> — только приём лодки и подготовка: переходов в план не закладываем.
+        Остальные дни — с логикой «утром под парусом / днём остров / ночью в бухте или на якоре».
+      </p>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">14 ноя · сб</span>
+          <h3 class="day-title">День 1 — марина Маэ, без переходов</h3>
+          <span class="day-badge no-sail">без выхода в море</span>
+        </div>
+        <div class="day-body">
+          <p><strong>Старт и конец круиза:</strong> марина на Маэ (чек-ин катамарана по договору с чартером).</p>
+          <ul>
+            <li>Оформление яхты, инвентаризация, инструктаж по системам и парусам.</li>
+            <li>Закупка провизии: Виктория / супермаркеты у Эден-Айленд или по пути от аэропорта.</li>
+            <li>Прогулка по Эден-Айленд, вид на залив и яхты; при желании — такси до Виктории (часы, рынок Sir Selwyn Selwyn-Clarke).</li>
+            <li>Вечером — планирование ближайших дней по погоде (GRIB, местные прогнозы), ранний отдых.</li>
+          </ul>
+          <p class="day-meta">Ночёвка: у причала в базовой марине или короткий перенос на якорь в пределах залива по согласованию с чартером — без дневного «перехода» как этапа круиза.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">15 ноя · вс</span>
+          <h3 class="day-title">День 2 — Маэ: залив или морской парк Сент-Энн</h3>
+          <span class="day-badge">первый выход</span>
+        </div>
+        <div class="day-body">
+          <p>Короткий первый переход, чтобы освоить лодку в реальных условиях.</p>
+          <ul>
+            <li>Вариант А: якорная стоянка у <strong>морского парка Сент-Энн</strong> (острова Сент-Энн, Раунд, Серф) — снорклинг, песчаные пляжи, вид на Маэ.</li>
+            <li>Вариант Б: бухты северного Маэ (например, <strong>Бо-Валлон</strong> / окрестности) — спокойная вода для тренировки постановки на якорь.</li>
+          </ul>
+          <p class="day-meta">Ночёвка на якоре в защищённом месте или возврат в марину — по погоде и плану.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">16 ноя · пн</span>
+          <h3 class="day-title">День 3 — Праслин</h3>
+          <span class="day-badge">переход</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Переход на <strong>Праслин</strong> (основная гавань: Бай-Сент-Анн / якорные стоянки на северо-востоке — по карте и разрешениям).</li>
+            <li><strong>Валле-де-Мэ</strong> — заповедник с уникальной пальмой коко-де-мер; лучше заранее уточнить логистику с берега (такси / экскурсия).</li>
+            <li>Пляж <strong>Анс-Ласьо</strong> — один из самых фотогеничных в мире; время на купание.</li>
+          </ul>
+          <p class="day-meta">Ночёвка: якорь у Праслина или в соседней защищённой бухте.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">17 ноя · вт</span>
+          <h3 class="day-title">День 4 — Ла-Диг</h3>
+          <span class="day-badge">остров</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Переход к <strong>Ла-Дигу</strong> (часто стоянка у Ла-Пас / Ла-Репар / по погоде).</li>
+            <li>Аренда велосипедов: <strong>Анс-Сорс-д’Аржан</strong>, <strong>L’Union Estate</strong> (старая копра), пляжи Гранд-Анс / Петит-Анс.</li>
+            <li>Неспешный день: гранитные валуны, пляжи, кафе.</li>
+          </ul>
+          <p class="day-meta">Ночёвка на якоре у Ла-Дига или возврат к Праслину — по ветру.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">18 ноя · ср</span>
+          <h3 class="day-title">День 5 — Кюрьёз и Сен-Пьер</h3>
+          <span class="day-badge">природа</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li><strong>Кюрьёз</strong> — национальный парк, прогулка до мыса с гигантскими сейшельскими черепахами (вход/правила на месте).</li>
+            <li><strong>Остров Сен-Пьер</strong> — классическая снорклинг-точка с мелководьем и рыбами.</li>
+            <li>Возможен обедной стоп на Праслине при возврате.</li>
+          </ul>
+          <p class="day-meta">Ночёвка: якорь у Праслина / пролив между островами — по свету и ветру.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">19 ноя · чт</span>
+          <h3 class="day-title">День 6 — Фелисите / Сестринские острова или «запасной» день</h3>
+          <span class="day-badge">гибкий</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>При хорошей погоде — короткие переходы к <strong>Фелисите</strong>, <strong>Гранд-Сёр</strong> / <strong>Пти-Сёр</strong> (часто частные зоны — уточнять доступ с борта).</li>
+            <li>Альтернатива: второй заход на Ла-Диг или спокойный день на Праслине (пляжи Кот-д’Ор, Воллемар).</li>
+            <li>Резерв на отложенные из-за погоды активности.</li>
+          </ul>
+          <p class="day-meta">Ночёвка: якорь в выбранном районе Гранд-Сейш.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">20 ноя · пт</span>
+          <h3 class="day-title">День 7 — возврат на Маэ</h3>
+          <span class="day-badge">переход</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Ранний выход в сторону Маэ с запасом по свету и ветру.</li>
+            <li>По пути при желании — стоп у <strong>Силуэта</strong> (национальный парк, круговые тропы по согласованию) или финальный снорклинг у Сент-Энн.</li>
+            <li>К вечеру — подход к зоне базовой <strong>марины Маэ</strong>, подготовка к сдаче яхты.</li>
+          </ul>
+          <p class="day-meta">Ночёвка: марина или якорь у Маэ — по договорённости с чартером.</p>
+        </div>
+      </article>
+
+      <article class="day">
+        <div class="day-head">
+          <span class="day-date">21 ноя · сб</span>
+          <h3 class="day-title">День 8 — сдача катамарана</h3>
+          <span class="day-badge no-sail">окончание чартера</span>
+        </div>
+        <div class="day-body">
+          <ul>
+            <li>Утренняя сдача судна: топливо, уборка, проверка повреждений, закрытие счетов.</li>
+            <li>Трансфер в аэропорт или продолжение отпуска на суше.</li>
+          </ul>
+          <p class="day-meta">Планируйте вылет не раньше чем через 2–3 часа после окончания чек-аута или с запасом на дорогу.</p>
+        </div>
+      </article>
+
+      <h3>Острова по порядку (логика круиза)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Точка</th>
+            <th>Заметки</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Маэ (марина)</td>
+            <td>Старт, провизия, Виктория</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Сент-Энн / залив Маэ</td>
+            <td>Морской парк, снорклинг</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Праслин</td>
+            <td>Валле-де-Мэ, Анс-Ласьо</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Ла-Диг</td>
+            <td>Велосипеды, пляжи</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Кюрьёз · Сен-Пьер</td>
+            <td>Черепахи, риф</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Фелисите / Сёр / резерв</td>
+            <td>Гибкий день</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Маэ</td>
+            <td>Возврат, сдача яхты</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="gear">
+      <h2>Снаряжение и чемодан</h2>
+      <p class="lead">Катамаран даёт много места, но лучше укладываться в мягкие сумки — их проще складывать в каютах.</p>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>На борту и в воде</h3>
+          <ul>
+            <li>Солнцезащита: крем SPF50+, губная помада, лёгкая рубашка с длинным рукавом.</li>
+            <li>Маска, трубка, ласты; гидрокостюм «shorty» по желанию (ноябрь — тёплая вода).</li>
+            <li>Полотенца из микрофибры, водонепроницаемый чехол для телефона.</li>
+            <li>Детский/личный спасательный круг — по правилам чартера.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Одежда и обувь</h3>
+          <ul>
+            <li>Белая подошва или босиком на палубе — как требует чартер.</li>
+            <li>Кепка/панама, поляризационные очки.</li>
+            <li>Лёгкий дождевик на короткие ливни.</li>
+            <li>Тёплая кофта на вечер и под ветром.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Документы и деньги</h3>
+          <ul>
+            <li>Паспорт, страховка, права на яхту (если bareboat).</li>
+            <li>Банковские карты; наличные сейшельских рупий для мелочей на островах.</li>
+            <li>Электронные копии документов в облаке.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Аптечка</h3>
+          <ul>
+            <li>Пластыри, средство от укачивания, обезболивающее, репеллент.</li>
+            <li>Личные лекарства с запасом на весь срок.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="marina">
+      <h2>Марина и логистика</h2>
+
+      <h3>База: марина на Маэ</h3>
+      <p>
+        Чартеры чаще всего стартуют из <strong>Эден-Айленд</strong> (Eden Island) или соседних причалов у Виктории.
+        Точное название причала и чек-ин уточняйте в договоре — вставьте сюда контакты вашей компании после бронирования.
+      </p>
+
+      <h3>От аэропорта</h3>
+      <p>
+        Международный аэропорт Сейшел (SEZ) на Маэ: такси до марины обычно 15–25 минут; многие чартеры предлагают трансфер —
+        закажите заранее.
+      </p>
+
+      <h3>Провизия</h3>
+      <p>
+        Крупные магазины — на Маэ (Виктория, Эден-Айленд). На малых островах ассортимент ограничен и дороже;
+        запланируйте запас воды и продуктов с первого дня.
+      </p>
+
+      <div class="callout">
+        <strong>Совет:</strong> в первый день без переходов как раз удобно сделать закупку «на неделю» списком:
+        завтраки, обеды под парусом, ужины, вода, снеки, напитки (алкоголь — по правилам борта и страны).
+      </div>
+    </section>
+
+    <section id="safety">
+      <h2>Безопасность и навигация</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Ветер и заливы</h3>
+          <p style="margin:0 0 0.5rem">Юго-восточный муссон может давать волну на подветренных сторонах островов. Планируйте переходы с запасом по времени; избегайте крупных перегонов на закате.</p>
+        </div>
+        <div class="card">
+          <h3>Рифы и глубины</h3>
+          <p style="margin:0 0 0.5rem">Входы в лагуны и якорные места сужаются — ориентируйтесь на актуальные карты и дневной свет. Снорклинг у рифов — только при спокойной приближении с яхты.</p>
+        </div>
+        <div class="card">
+          <h3>Парки и сборы</h3>
+          <p style="margin:0 0 0.5rem">Морские парки (Сент-Энн, Кюрьёз и др.) могут требовать билеты или сопровождение гидов — проверьте до посещения.</p>
+        </div>
+        <div class="card">
+          <h3>Связь</h3>
+          <p style="margin:0 0 0.5rem">Мобильная связь есть у многих населённых мест; в открытом море готовьте офлайн-карты и план оповещения береговых служб по процедуре чартера.</p>
+        </div>
+      </div>
+
+      <p class="map-note" style="margin-top:1.5rem">
+        Экстренные службы Сейшел: <strong>999</strong> (единый номер уточняйте на месте и в брифинге чартера).
+        Вся информация на странице носит ознакомительный характер и не заменяет навигационный брифинг и местные правила.
+      </p>
+    </section>
+
+    <footer>
+      <p>Яхтинг на Сейшелах · марина Маэ · 14–21 ноября 2026</p>
+      <p>Статическая страница для GitHub Pages — замените контакты чартера и уточните точки после бронирования.</p>
+    </footer>
   </main>
 
-  <footer>
-    Круиз-план для <a href="https://www.boataround.com/ru/yachta/lagoon-42-golden-bride" target="_blank" rel="noopener noreferrer">Lagoon 42 “Golden Bride”</a> • Маршрут вдохновлён типовыми недельными программами по Seychelles.[web:17][web:18][web:19][web:32][web:34]
-  </footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    (function () {
+      var map = L.map("map").setView([-4.35, 55.7], 9);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>",
+        maxZoom: 18
+      }).addTo(map);
+
+      var points = [
+        { name: "Маэ (марина / Эден)", ll: [-4.633, 55.467] },
+        { name: "Сент-Энн (МНП)", ll: [-4.617, 55.492] },
+        { name: "Праслин", ll: [-4.327, 55.742] },
+        { name: "Ла-Диг", ll: [-4.359, 55.831] },
+        { name: "Кюрьёз", ll: [-4.284, 55.733] },
+        { name: "Сен-Пьер", ll: [-4.319, 55.753] },
+        { name: "Фелисите", ll: [-4.298, 55.725] }
+      ];
+
+      var latlngs = points.map(function (p) { return p.ll; });
+      L.polyline(latlngs, { color: "#3ec9b8", weight: 3, opacity: 0.75, dashArray: "8 10" }).addTo(map);
+
+      points.forEach(function (p) {
+        L.circleMarker(p.ll, { radius: 7, fillColor: "#3ec9b8", color: "#0c1e24", weight: 2, fillOpacity: 0.9 })
+          .addTo(map)
+          .bindPopup("<strong>" + p.name + "</strong>");
+      });
+
+      map.fitBounds(latlngs, { padding: [40, 40] });
+    })();
+  </script>
 </body>
 </html>
